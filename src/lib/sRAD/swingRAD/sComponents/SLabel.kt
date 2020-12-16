@@ -14,9 +14,9 @@ class SLabel: JLabel {
         setProperties(x, y, icon, cursor)
     }
 
-    constructor (x: Int, y: Int, width: Int, height: Int = 18, str: String? = "", font: Font? = fontText, fontColor: Color? = darkWhite,
+    constructor (x: Int, y: Int, width: Int, height: Int = 18, str: String? = "", font: Font? = fontText, foreground: Color? = darkWhite,
                  hAlignment: Int = LEFT, background: Color? = null) {
-        setProperties(x , y, width, height, str, font, fontColor, hAlignment, background)
+        setProperties(x , y, width, height, str, font, foreground, hAlignment, background)
     }
 
     constructor()
@@ -35,10 +35,10 @@ class SLabel: JLabel {
     /**
      * text label
      */
-    fun setProperties(x: Int, y: Int, width: Int, height: Int, str: String? = "", font: Font? = fontText, fontColor: Color? = darkWhite,
-                             hAlignment: Int = LEFT, background: Color? = null) {
+    fun setProperties(x: Int, y: Int, width: Int, height: Int, str: String? = "", font: Font? = fontText, foreground: Color? = darkWhite,
+                      hAlignment: Int = LEFT, background: Color? = null) {
         this.setBounds(x, y, width, height)
-        this.foreground = fontColor
+        this.foreground = foreground
         this.background = background
         this.font = font
         this.text = str
