@@ -7,6 +7,7 @@ import java.awt.*
 import javax.swing.JFrame
 import javax.swing.JPanel
 import javax.swing.JButton
+import kotlin.system.exitProcess
 
 class ATM: JFrame() {
 
@@ -42,7 +43,7 @@ class ATM: JFrame() {
 
         }
         bExit.setProperties(1200, 629, 60, 60)
-        bExit.addActionListener { System.exit(0) }
+        bExit.addActionListener { exitProcess(0) }
         add(bExit)
     }
 
