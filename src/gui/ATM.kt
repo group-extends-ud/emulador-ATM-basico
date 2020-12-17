@@ -4,6 +4,8 @@ import lib.sRAD.swingRAD.black
 import lib.sRAD.swingRAD.sComponents.SLabel
 import lib.sRAD.swingRAD.setProperties
 import java.awt.*
+import java.awt.event.MouseEvent
+import java.awt.event.MouseListener
 import javax.swing.JFrame
 import javax.swing.JPanel
 import javax.swing.JButton
@@ -26,8 +28,27 @@ class ATM: JFrame() {
 
     private fun addBExit() {
         val bExit = object: JButton() {
+            var color1 = Color(245, 245, 245)
+            var color2 = Color(102, 102, 102)
 
             init {
+                addMouseListener(object: MouseListener{
+                    override fun mouseClicked(e: MouseEvent?) { }
+
+                    override fun mousePressed(e: MouseEvent?) { }
+
+                    override fun mouseReleased(e: MouseEvent?) { }
+
+                    override fun mouseEntered(e: MouseEvent?) {
+                        color1 = Color(245, 29, 29)
+                        color2 = Color(109, 29, 29)
+                    }
+
+                    override fun mouseExited(e: MouseEvent?) {
+                        color1 = Color(245, 245, 245)
+                        color2 = Color(102, 102, 102)
+                    }
+                })
                 val lExit = SLabel(12, 20, 40, 20, "EXIT", foreground = black)
                 add(lExit)
 
@@ -37,7 +58,7 @@ class ATM: JFrame() {
             override fun paintComponent(g: Graphics){
                 super.paintComponents(g)
                 val g2d = g as Graphics2D
-                g2d.paint = GradientPaint(0F, 0F, Color(245, 245, 245), 0F, 60F, Color(102, 102, 102))
+                g2d.paint = GradientPaint(0F, 0F, color1, 0F, 60F, color2)
                 g2d.fillRect(0, 0, 60, 60)
             }
 
@@ -70,10 +91,32 @@ class ATM: JFrame() {
     private fun addOptionButtons() {
         for (i in 0 until 6) {
             val optionButton = object: JButton()  {
+                var color1 = Color(245, 245, 245)
+                var color2 = Color(102, 102, 102)
+                init {
+                    addMouseListener(object: MouseListener{
+                        override fun mouseClicked(e: MouseEvent?) { }
+
+                        override fun mousePressed(e: MouseEvent?) { }
+
+                        override fun mouseReleased(e: MouseEvent?) { }
+
+                        override fun mouseEntered(e: MouseEvent?) {
+                            color1 = Color(245, 245, 29)
+                            color2 = Color(109, 109, 29)
+                        }
+
+                        override fun mouseExited(e: MouseEvent?) {
+                            color1 = Color(245, 245, 245)
+                            color2 = Color(102, 102, 102)
+                        }
+                    })
+                }
+
                 override fun paintComponent(g: Graphics) {
                     super.paintComponents(g)
                     val g2d = g as Graphics2D
-                    g2d.paint = GradientPaint(0F, 0F, Color(245, 245, 245), 0F, 60F, Color(102, 102, 102))
+                    g2d.paint = GradientPaint(0F, 0F, color1, 0F, 60F, color2)
                     g2d.fillRect(0, 0, 120, 60)
                 }
             }
