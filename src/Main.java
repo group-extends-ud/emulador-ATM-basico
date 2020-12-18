@@ -1,4 +1,4 @@
-import gui.ATM;
+import app.ATM;
 
 public class Main {
 

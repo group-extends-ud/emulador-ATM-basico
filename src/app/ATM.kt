@@ -1,9 +1,9 @@
-package gui
+package app
 
-import lib.sRAD.swingRAD.black
-import lib.sRAD.swingRAD.sComponents.SButton
-import lib.sRAD.swingRAD.sComponents.SLabel
-import lib.sRAD.swingRAD.setProperties
+import lib.sRAD.gui.resource.black
+import lib.sRAD.gui.sComponent.SButton
+import lib.sRAD.gui.sComponent.SLabel
+import lib.sRAD.gui.tool.setProperties
 import java.awt.*
 import java.awt.event.MouseEvent
 import java.awt.event.MouseListener

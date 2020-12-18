@@ -1,6 +1,6 @@
-package gui
+package app
 
-import lib.sRAD.swingRAD.sComponents.SPanel
+import lib.sRAD.gui.sComponent.SPanel
 import java.awt.Color
 import java.awt.GradientPaint
 import java.awt.Graphics

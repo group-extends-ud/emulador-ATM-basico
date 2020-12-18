@@ -1,6 +1,7 @@
-package lib.sRAD.swingRAD.sComponents
+package lib.sRAD.gui.sComponent
 
-import lib.sRAD.swingRAD.*
+import lib.sRAD.gui.resource.*
+import lib.sRAD.gui.tool.*
 import java.awt.Color
 import java.awt.Dimension
 import javax.swing.JScrollPane

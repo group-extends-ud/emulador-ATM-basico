@@ -1,18 +1,16 @@
-package lib.sRAD.swingRAD
+package lib.sRAD.gui.tool
 
-import lib.sRAD.swingRAD.mainBar.MainBar
-import lib.sRAD.swingRAD.sComponents.SLabel
+import lib.sRAD.gui.component.mainBar.MainBar
+import lib.sRAD.gui.resource.*
+import lib.sRAD.gui.sComponent.SLabel
 import java.awt.*
-import java.awt.event.MouseEvent
-import java.awt.event.MouseListener
 import javax.swing.*
 import javax.swing.border.Border
-import javax.swing.table.DefaultTableModel
 
 //JFrame-----------------------------------------------------------------------------------------
 fun JFrame.setProperties(width: Int = 1280, height: Int = 720, background: Color? = megaDarkGray, undecorated: Boolean = true,
-         border: Border? = blackBorderTransparent, relativeLocation: Component? = null, visible: Boolean = true,
-         layout: LayoutManager? = null) {
+                         border: Border? = blackBorderTransparent, relativeLocation: Component? = null, visible: Boolean = true,
+                         layout: LayoutManager? = null) {
     this.setSize(width, height)
     this.setLocationRelativeTo(relativeLocation)
     this.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
@@ -37,7 +35,8 @@ fun JFrame.setBackground(path: String) {
 
 //JTextArea-----------------------------------------------------------------------------------------
 fun JTextArea.setProperties(x: Int, y: Int, width: Int, height: Int, editable: Boolean = true, lineWrap: Boolean = true, text: String? = "",
-                            foreground: Color? = darkWhite, background: Color? = darkGray, font: Font? = fontText, border: Border? = semiDarkGray2Border) {
+                            foreground: Color? = darkWhite, background: Color? = darkGray, font: Font? = fontText, border: Border? = semiDarkGray2Border
+) {
     this.setBounds(x, y, width, height)
     this.text = text
     this.isEditable = editable

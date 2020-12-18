@@ -1,4 +1,4 @@
-package lib.sRAD.logicRAD
+package lib.sRAD.logic
 
 // forma escalonada
 private fun performOperation(a: Array<DoubleArray>): Int {

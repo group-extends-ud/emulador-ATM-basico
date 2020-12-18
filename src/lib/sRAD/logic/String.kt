@@ -1,4 +1,4 @@
-package lib.sRAD.logicRAD
+package lib.sRAD.logic
 
 import java.lang.NumberFormatException
 

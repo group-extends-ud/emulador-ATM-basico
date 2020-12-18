@@ -1,4 +1,4 @@
-package lib.sRAD.swingRAD
+package lib.sRAD.gui.resource
 
 import java.awt.Color
 import java.awt.Cursor
@@ -58,6 +58,7 @@ val ta3 = Color(248, 206, 204)
 val ta4 = Color(184, 84, 80)
 val ta5 = Color(218, 232, 252)
 val ta6 = Color(108, 142, 191)
+val ta7 = Color(255, 89, 89)
 
 //dark theme based on intellij idea
 val semiDarkGrayBlue = Color(50, 53, 55) //main background

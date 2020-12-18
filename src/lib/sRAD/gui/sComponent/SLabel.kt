@@ -1,7 +1,7 @@
-package lib.sRAD.swingRAD.sComponents
+package lib.sRAD.gui.sComponent
 
-import lib.sRAD.swingRAD.darkWhite
-import lib.sRAD.swingRAD.fontText
+import lib.sRAD.gui.resource.darkWhite
+import lib.sRAD.gui.resource.fontText
 import java.awt.Color
 import java.awt.Cursor
 import java.awt.Font

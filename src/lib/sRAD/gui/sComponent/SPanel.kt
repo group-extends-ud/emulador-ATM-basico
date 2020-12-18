@@ -1,13 +1,11 @@
-package lib.sRAD.swingRAD.sComponents
+package lib.sRAD.gui.sComponent
 
-import lib.sRAD.swingRAD.*
+import lib.sRAD.gui.resource.semiDarkGray2Border
+import lib.sRAD.gui.resource.semiDarkGrayBlue
 import java.awt.Color
 import java.awt.LayoutManager
 import javax.swing.JPanel
-import javax.swing.JScrollPane
-import javax.swing.JTable
 import javax.swing.border.Border
-import javax.swing.table.DefaultTableModel
 
 open class SPanel: JPanel {
 
@@ -19,7 +17,7 @@ open class SPanel: JPanel {
     constructor()
 
     fun setProperties(x: Int=0, y: Int=0, width: Int=0, height: Int=0, background: Color? = semiDarkGrayBlue, border: Border? = semiDarkGray2Border,
-                             layout: LayoutManager? = null) {
+                      layout: LayoutManager? = null) {
         this.setBounds(x, y, width, height)
         this.background = background
         this.border = border

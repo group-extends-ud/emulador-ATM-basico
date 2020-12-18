@@ -1,6 +1,8 @@
-package lib.sRAD.swingRAD.sComponents
+package lib.sRAD.gui.sComponent
 
-import lib.sRAD.swingRAD.*
+import lib.sRAD.gui.*
+import lib.sRAD.gui.resource.*
+import lib.sRAD.gui.tool.*
 import java.awt.Color
 import java.awt.Cursor
 import java.awt.Font
@@ -42,8 +44,8 @@ open class SButton: JButton {
      * text button
      */
     fun setProperties(x: Int, y: Int, width: Int, height: Int, text: String? = "", cursor: Cursor? = handCursor, font: Font? = fontTitleMini,
-                              background: Color? = darkGray, foreground: Color? = darkWhite, border: Border? = semiDarkGray2Border,
-                              hAlignment: String? = "CENTER", isSolid: Boolean = true, backgroundEntered: Color = semiDarkGray
+                      background: Color? = darkGray, foreground: Color? = darkWhite, border: Border? = semiDarkGray2Border,
+                      hAlignment: String? = "CENTER", isSolid: Boolean = true, backgroundEntered: Color = semiDarkGray
     ) {
         setProperties(x, y, width, height, cursor, background, isSolid)
         this.text = text

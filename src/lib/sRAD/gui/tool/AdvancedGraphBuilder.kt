@@ -1,5 +1,6 @@
-package lib.sRAD.swingRAD
+package lib.sRAD.gui.tool
 
+import lib.sRAD.gui.resource.*
 import java.awt.*
 import java.awt.geom.Area
 import java.awt.geom.Ellipse2D
@@ -15,7 +16,8 @@ import javax.swing.table.DefaultTableCellRenderer
  * @contributor Jean Carlos Santoya Cabrera */
 
 fun getCustomTable(colorPrincipal: Color? = semiDarkGrayBlue, colorSecundario: Color? = semiDarkGrayBlue, colorSeleccion: Color? = mdb1,
-                   colorFuente: Color? = darkWhite, fuente: Font? = fontText): DefaultTableCellRenderer {
+                   colorFuente: Color? = darkWhite, fuente: Font? = fontText
+): DefaultTableCellRenderer {
     return object : DefaultTableCellRenderer() {
         override fun getTableCellRendererComponent(
             table: JTable?, value: Any?, isSelected: Boolean, hasFocus: Boolean, row: Int, column: Int
@@ -37,7 +39,7 @@ fun getCustomTable(colorPrincipal: Color? = semiDarkGrayBlue, colorSecundario: C
 }
 
 fun getCustomScroll(grosor: Int = 7, radio: Int = 10, colorFondo: Color? = semiDarkGrayBlue, colorBarraNormal: Color? = gray,
-    colorBarraArrastrada: Color? = darkBlueGray
+                    colorBarraArrastrada: Color? = darkBlueGray
 ): BasicScrollBarUI {
     return object : BasicScrollBarUI() {
         private val d = Dimension()
