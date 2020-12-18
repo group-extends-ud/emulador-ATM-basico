@@ -10,6 +10,7 @@ import javax.swing.JLabel
 
 class SLabel: JLabel {
 
+    //icon label
     constructor (x: Int, y: Int, icon: ImageIcon, cursor: Cursor? = null) {
         setProperties(x, y, icon, cursor)
     }
