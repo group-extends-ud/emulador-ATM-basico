@@ -1,6 +1,7 @@
 package gui
 
 import lib.sRAD.swingRAD.black
+import lib.sRAD.swingRAD.sComponents.SButton
 import lib.sRAD.swingRAD.sComponents.SLabel
 import lib.sRAD.swingRAD.setProperties
 import java.awt.*
@@ -8,7 +9,6 @@ import java.awt.event.MouseEvent
 import java.awt.event.MouseListener
 import javax.swing.JFrame
 import javax.swing.JPanel
-import javax.swing.JButton
 import kotlin.system.exitProcess
 
 class ATM: JFrame() {
@@ -27,7 +27,7 @@ class ATM: JFrame() {
     }
 
     private fun addBExit() {
-        val bExit = object: JButton() {
+        val bExit = object: SButton() {
             var color1 = Color(245, 245, 245)
             var color2 = Color(102, 102, 102)
 
@@ -90,7 +90,7 @@ class ATM: JFrame() {
 
     private fun addOptionButtons() {
         for (i in 0 until 6) {
-            val optionButton = object: JButton()  {
+            val optionButton = object: SButton()  {
                 var color1 = Color(245, 245, 245)
                 var color2 = Color(102, 102, 102)
                 init {
