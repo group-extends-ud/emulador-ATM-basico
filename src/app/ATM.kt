@@ -1,6 +1,7 @@
 package app
 
 import lib.sRAD.gui.resource.black
+import lib.sRAD.gui.resource.mustard
 import lib.sRAD.gui.sComponent.SButton
 import lib.sRAD.gui.sComponent.SLabel
 import lib.sRAD.gui.tool.setProperties
@@ -12,11 +13,12 @@ import javax.swing.JPanel
 import kotlin.system.exitProcess
 
 class ATM: JFrame() {
+    val window = Window()
 
     init {
         createATM()
-        addOptionButtons()
         addWindow()
+        addOptionButtons()
         addKeyBoard()
         addImpresora()
         addDispensador()
@@ -69,7 +71,15 @@ class ATM: JFrame() {
     }
 
     private fun addLectorTarjeta() {
-        add(LectorTarjeta())
+        add(object: LectorTarjeta() {
+            override fun tarjetaIngresada() {
+                window.current = Current.Operacion
+            }
+
+            override fun tarjetaRetirada() {
+                window.current = Current.Bienvenido
+            }
+        })
     }
 
     private fun addDispensador() {
@@ -81,11 +91,23 @@ class ATM: JFrame() {
     }
 
     private fun addKeyBoard() {
-        add(KeyBoard())
+        add(object: KeyBoard() {
+            override fun pressCancel() {
+            }
+
+            override fun pressDel() {
+            }
+
+            override fun pressNumber(num: Int) {
+            }
+
+            override fun pressEnter() {
+            }
+        })
     }
 
     private fun addWindow() {
-        add(Window())
+        add(window)
     }
 
     private fun addOptionButtons() {
@@ -102,7 +124,7 @@ class ATM: JFrame() {
                         override fun mouseReleased(e: MouseEvent?) { }
 
                         override fun mouseEntered(e: MouseEvent?) {
-                            color1 = Color(245, 245, 29)
+                            color1 = mustard
                             color2 = Color(109, 109, 29)
                         }
 
@@ -116,7 +138,7 @@ class ATM: JFrame() {
                 override fun paintComponent(g: Graphics) {
                     super.paintComponents(g)
                     val g2d = g as Graphics2D
-                    g2d.paint = GradientPaint(0F, 0F, color1, 0F, 60F, color2)
+                    g2d.paint = GradientPaint(0F, 0F, color1, 0F, 70F, color2)
                     g2d.fillRect(0, 0, 120, 60)
                 }
             }

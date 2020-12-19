@@ -79,6 +79,7 @@ val semiDarkGray3 = Color(81, 81, 81) //mainToolbar bottom border
 //Windows standard
 val fontTitle = Font("Arial", Font.BOLD, 28)
 val fontTitle1 = Font("Gill Sans MT Condensed", Font.PLAIN, 64)
+val fontTitle2 = Font("Arial", Font.BOLD, 18)
 val fontTitleMini = Font("Arial", Font.PLAIN, 14) //used in title of mainBar, buttons
 val fontSubtitle = Font("Gill Sans MT Condensed", Font.PLAIN, 32)
 val fontVersion = Font("Arial", Font.PLAIN, 14)

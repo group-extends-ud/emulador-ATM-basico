@@ -8,6 +8,11 @@ import java.awt.Graphics2D
 
 class Dispensador: SPanel(30, 590, 400, 80) {
 
+    init {
+        val pDecorador = SPanel(40, 35, 330, 10, Color(100, 118, 135))
+        add(pDecorador)
+    }
+
     override fun paintComponent(g: Graphics){
         super.paintComponents(g)
         val g2d = g as Graphics2D

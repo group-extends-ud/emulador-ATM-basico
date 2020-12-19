@@ -8,6 +8,11 @@ import java.awt.Graphics2D
 
 class Impresora: SPanel(110, 470, 240, 80) {
 
+    init {
+        val pDecorador = SPanel(30, 35, 180, 10, Color(100, 118, 135))
+        add(pDecorador)
+    }
+
     override fun paintComponent(g: Graphics){
         super.paintComponents(g)
         val g2d = g as Graphics2D

@@ -8,7 +8,7 @@ import java.awt.GradientPaint
 import java.awt.Graphics
 import java.awt.Graphics2D
 
-class KeyBoard: SPanel(450, 440, 385, 270) {
+abstract class KeyBoard: SPanel(450, 440, 385, 270) {
 
     init {
         //numbers
@@ -51,21 +51,13 @@ class KeyBoard: SPanel(450, 440, 385, 270) {
         add(btnEnter)
     }
 
-    fun pressCancel() {
-        //not implemented yet
-    }
+    abstract fun pressCancel()
 
-    fun pressDel() {
-        //not implemented yet
-    }
+    abstract fun pressDel()
 
-    fun pressNumber(num: Int){
-        //not implemented yet
-    }
+    abstract fun pressNumber(num: Int)
 
-    fun pressEnter() {
-        //not implemented yet
-    }
+    abstract fun pressEnter()
 
     override fun paintComponent(g: Graphics){
         super.paintComponents(g)
