@@ -10,3 +10,12 @@ fun String.isDouble(): Boolean {
         false
     }
 }
+
+fun String.isInt(): Boolean {
+    return try {
+        this.toInt()
+        true
+    }catch (numberFormat: NumberFormatException){
+        false
+    }
+}

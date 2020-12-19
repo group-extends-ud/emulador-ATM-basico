@@ -36,7 +36,7 @@ abstract class KeyBoard: SPanel(450, 440, 385, 270) {
 
         //cancel button
         val btnCancel = SButton(
-            245, 80, 120, 50, "DEL", background = ta3, foreground = black, backgroundEntered = mustard,
+            245, 80, 120, 50, "CANCEL", background = ta3, foreground = black, backgroundEntered = mustard,
             border = ta4Border
         )
         btnCancel.addActionListener { pressCancel() }

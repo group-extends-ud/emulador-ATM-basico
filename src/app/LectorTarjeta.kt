@@ -11,9 +11,10 @@ import javax.swing.JFrame
 import javax.swing.JOptionPane
 import javax.swing.JTextField
 
+var numeroTarjeta = ""
+
 abstract class LectorTarjeta: SPanel(900, 469, 340, 140, background = Color(43, 43, 43), border = blackBorder) {
 
-    private var numeroTarjeta = ""
 
     init {
         val laser = SButton(2, 70, 336, 10, background = ta7, border = transparentBorder, backgroundEntered = mustard)

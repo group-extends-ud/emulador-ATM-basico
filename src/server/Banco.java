@@ -9,7 +9,21 @@ public class Banco {
 
     public static boolean validarPassword(String password) {
         //por implementar
-        return false;
+        return true;
     }
 
+    public static boolean verificarDisponibilidadSaldo(int saldo) {
+        //por implementar
+        return true;
+    }
+
+    public static void retirar(int saldo) {
+        //por implementar
+    }
+
+    public static String datosUltimaOperacion(String numeroTarjeta) {
+        //por implementar
+        return "Fecha: x\nNumero cuenta: x\nOtra lineaaaaaaaaaaaaaaaaaaaaaaaaa\nOtra linea\nOtra linea\nOtra linea\nOtra linea\nOtra linea" +
+                "\nOtra linea\nOtra linea\nOtra linea\nOtra linea\nOtra linea\nOtra linea\nOtra linea\nOtra linea";
+    }
 }

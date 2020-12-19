@@ -5,15 +5,18 @@ import lib.sRAD.gui.resource.mustard
 import lib.sRAD.gui.sComponent.SButton
 import lib.sRAD.gui.sComponent.SLabel
 import lib.sRAD.gui.tool.setProperties
+import server.Banco
 import java.awt.*
 import java.awt.event.MouseEvent
 import java.awt.event.MouseListener
 import javax.swing.JFrame
+import javax.swing.JOptionPane
 import javax.swing.JPanel
 import kotlin.system.exitProcess
 
 class ATM: JFrame() {
     val window = Window()
+    val impresora = Impresora()
 
     init {
         createATM()
@@ -33,22 +36,25 @@ class ATM: JFrame() {
     }
 
     private fun addImpresora() {
-        add(Impresora())
+        add(impresora)
     }
 
     private fun addKeyBoard() {
         add(object: KeyBoard() {
             override fun pressCancel() {
+                if(window.current != Current.Bienvenido && window.current != Current.Operacion) {
+                    window.current = Current.Operacion
+                }
             }
 
             override fun pressDel() {
-                if (window.current == Current.Password) {
+                if (window.current == Current.Password || window.current == Current.CustomMonto) {
                     window.removePoint()
                 }
             }
 
             override fun pressNumber(num: Int) {
-                if (window.current == Current.Password) {
+                if (window.current == Current.Password || window.current == Current.CustomMonto) {
                     window.addPoint(num)
                 }
             }
@@ -57,8 +63,27 @@ class ATM: JFrame() {
                 if(window.current == Current.Password) {
                     window.validar()
                 }
+                if(window.current == Current.CustomMonto) {
+                    verificarDisponibilidadSaldo(window.obtenerSaldo())
+                }
             }
         })
+    }
+
+    private fun verificarDisponibilidadSaldo(saldo: Int) {
+        if(saldo <= 0) {
+            JOptionPane.showMessageDialog(null, "Valor ingresado inválido", "ERROR", JOptionPane.ERROR_MESSAGE)
+        }
+        else if(Banco.verificarDisponibilidadSaldo(saldo)) {
+            Banco.retirar(saldo)
+            window.current = Current.Factura
+        }
+        else {
+            JOptionPane.showMessageDialog(
+                null, "No posee el saldo requerido para el retiro", "Mensaje", JOptionPane.INFORMATION_MESSAGE
+            )
+            window.current = Current.Operacion
+        }
     }
 
     private fun addOptionButtons() {
@@ -109,6 +134,37 @@ class ATM: JFrame() {
             if (opcion == 0) {
                 window.next = Current.Monto
                 window.current = Current.Password
+            }
+        }
+        else if (window.current == Current.Monto) {
+            when (opcion) {
+                0 -> verificarDisponibilidadSaldo(10000)
+                1 -> verificarDisponibilidadSaldo(50000)
+                2 -> verificarDisponibilidadSaldo(200000)
+                3 -> verificarDisponibilidadSaldo(400000)
+                4 -> verificarDisponibilidadSaldo(600000)
+                5 -> window.current = Current.CustomMonto
+            }
+        }
+        else if (window.current == Current.Factura) {
+            if (opcion == 0){
+                impresora.generarFactura()
+                window.current = Current.Final
+            }
+            else if (opcion == 3) {
+                window.current = Current.Final
+            }
+        }
+        else if (window.current == Current.Final) {
+            if (opcion == 0){
+                window.current = Current.Operacion
+            }
+            else if (opcion == 3) {
+                numeroTarjeta = ""
+                JOptionPane.showMessageDialog(
+                    null, "Su sesión ha finalizado exitosamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE
+                )
+                window.current = Current.Bienvenido
             }
         }
     }
