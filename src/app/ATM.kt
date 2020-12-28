@@ -71,17 +71,22 @@ class ATM: JFrame() {
     }
 
     private fun verificarDisponibilidadSaldo(saldo: Int) {
+        /*
         if(saldo <= 0) {
             JOptionPane.showMessageDialog(null, "Valor ingresado inválido", "ERROR", JOptionPane.ERROR_MESSAGE)
         }
         else if(Banco.verificarDisponibilidadSaldo(saldo)) {
+         */
+        if(saldo>0 && Banco.verificarDisponibilidadSaldo(saldo)) {
             Banco.retirar(saldo)
             window.current = Current.Factura
         }
         else {
+            /*
             JOptionPane.showMessageDialog(
                 null, "No posee el saldo requerido para el retiro", "Mensaje", JOptionPane.INFORMATION_MESSAGE
             )
+             */
             window.current = Current.Operacion
         }
     }
@@ -161,9 +166,11 @@ class ATM: JFrame() {
             }
             else if (opcion == 3) {
                 numeroTarjeta = ""
+                /*
                 JOptionPane.showMessageDialog(
                     null, "Su sesión ha finalizado exitosamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE
                 )
+                 */
                 window.current = Current.Bienvenido
             }
         }

@@ -5,7 +5,6 @@ import lib.sRAD.gui.resource.white
 import lib.sRAD.gui.sComponent.SLabel
 import lib.sRAD.gui.sComponent.SPanel
 import lib.sRAD.gui.tool.setProperties
-import lib.sRAD.logic.isDouble
 import lib.sRAD.logic.isInt
 import server.Banco
 import javax.swing.ImageIcon
@@ -75,7 +74,7 @@ class Window: SPanel(150, 25, 980, 410) {
         current = if (Banco.validarPassword(tfPassword.text)) {
             next
         } else {
-            JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "ERROR", JOptionPane.ERROR_MESSAGE)
+            //JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "ERROR", JOptionPane.ERROR_MESSAGE)
             Current.Operacion
         }
     }

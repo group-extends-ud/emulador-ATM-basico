@@ -58,17 +58,20 @@ abstract class LectorTarjeta: SPanel(900, 469, 340, 140, background = Color(43, 
                 btnInsertar.addActionListener {
                     if (Banco.validarTarjeta(tfNum.text)) {
                         numeroTarjeta = tfNum.text
+                        /*
                         JOptionPane.showMessageDialog(
                             null, "Su tarjeta ha sido validada exitosamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE
-                        )
+                        )*/
                         this@LectorTarjeta.parent.parent.parent.parent.isEnabled = true
                         tarjetaIngresada()
                         ventana.dispose()
                     } else {
+                        1
+                        /*
                         JOptionPane.showMessageDialog(
                             null, "La tarjeta ingresada no se pudo validar, verifique el valor ingresado", "ERROR",
                             JOptionPane.ERROR_MESSAGE
-                        )
+                        )*/
                     }
                 }
                 ventana.add(btnInsertar)
@@ -92,9 +95,10 @@ abstract class LectorTarjeta: SPanel(900, 469, 340, 140, background = Color(43, 
                 )
                 btnRetirar.addActionListener {
                     numeroTarjeta = ""
+                    /*
                     JOptionPane.showMessageDialog(
                         null, "Su tarjeta ha sido retirada exitosamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE
-                    )
+                    )*/
                     this@LectorTarjeta.parent.parent.parent.parent.isEnabled = true
                     tarjetaRetirada()
                     ventana.dispose()
