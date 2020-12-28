@@ -3,6 +3,9 @@ package server;
 public class Banco {
 
     public static boolean validarTarjeta(String text) {
+        //validar que no esta vacio
+        if(text.isEmpty())
+            return false;
         //por implementar
         return true;
     }
