@@ -90,11 +90,11 @@ class Window: SPanel(150, 25, 980, 410) {
 
     @Suppress("DEPRECATION")
     fun removePoint () {
-        if (current == Current.Password)
-            if(tfPassword.text.isNotEmpty())
-                tfPassword.text = tfPassword.text.subSequence(0, tfPassword.text.length - 1).toString()
-        else if(tfMonto.text.isNotEmpty())
-            tfMonto.text = tfMonto.text.subSequence(0, tfMonto.text.length - 1).toString()
+        if (current == Current.Password && tfPassword.text.isNotEmpty())
+            tfPassword.text = tfPassword.text.substring(0, tfPassword.text.length - 1)
+
+        else if(current == Current.CustomMonto && tfMonto.text.isNotEmpty())
+            tfMonto.text = tfMonto.text.substring(0, tfMonto.text.length - 1)
     }
 
     private fun setPassword() {
