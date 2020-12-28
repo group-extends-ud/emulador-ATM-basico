@@ -64,9 +64,10 @@ class Impresora: SPanel(110, 470, 240, 80) {
             )
             btnRetirar.addActionListener {
                 this@Impresora.parent.parent.remove(factura)
+                /*
                 JOptionPane.showMessageDialog(
                     null, "Su factura ha sido retirada exitosamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE
-                )
+                )*/
                 this@Impresora.parent.parent.parent.parent.isEnabled = true
                 ventana.dispose()
                 this@Impresora.parent.parent.repaint()

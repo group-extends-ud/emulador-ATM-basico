@@ -61,6 +61,7 @@ class Window: SPanel(150, 25, 980, 410) {
         add(operacion)
 
         add(tfMonto)
+        tfMonto.text = "CARGANDO"
         tfMonto.text = ""
     }
 
@@ -101,6 +102,7 @@ class Window: SPanel(150, 25, 980, 410) {
         add(operacion)
 
         add(tfPassword)
+        tfPassword.text = "CARGANDO"
         tfPassword.text = ""
     }
 
