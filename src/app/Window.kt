@@ -47,17 +47,17 @@ class Window: SPanel(150, 25, 980, 410) {
     }
 
     private fun setFinal() {
-        val operacion = SLabel(2, 2, ImageIcon("resources/pantallaFinal.png"))
+        val operacion = SLabel(2, 2, ImageIcon("resources/image/pantallaFinal.png"))
         add(operacion)
     }
 
     private fun setFactura() {
-        val operacion = SLabel(2, 2, ImageIcon("resources/pantallaFactura.png"))
+        val operacion = SLabel(2, 2, ImageIcon("resources/image/pantallaFactura.png"))
         add(operacion)
     }
 
     private fun setCustomMonto() {
-        val operacion = SLabel(2, 2, ImageIcon("resources/pantallaCustomMonto.png"))
+        val operacion = SLabel(2, 2, ImageIcon("resources/image/pantallaCustomMonto.png"))
         add(operacion)
 
         add(tfMonto)
@@ -66,7 +66,7 @@ class Window: SPanel(150, 25, 980, 410) {
     }
 
     private fun setMonto() {
-        val operacion = SLabel(2, 2, ImageIcon("resources/pantallaMonto.png"))
+        val operacion = SLabel(2, 2, ImageIcon("resources/image/pantallaMonto.png"))
         add(operacion)
     }
 
@@ -98,7 +98,7 @@ class Window: SPanel(150, 25, 980, 410) {
     }
 
     private fun setPassword() {
-        val operacion = SLabel(2, 2, ImageIcon("resources/pantallaContrasena.png"))
+        val operacion = SLabel(2, 2, ImageIcon("resources/image/pantallaContrasena.png"))
         add(operacion)
 
         add(tfPassword)
@@ -107,12 +107,12 @@ class Window: SPanel(150, 25, 980, 410) {
     }
 
     private fun setOperacion () {
-        val operacion = SLabel(2, 2, ImageIcon("resources/pantallaOperacion.png"))
+        val operacion = SLabel(2, 2, ImageIcon("resources/image/pantallaOperacion.png"))
         add(operacion)
     }
 
     private fun setBienvenido() {
-        val bienvenido = SLabel(2, 2, ImageIcon("resources/pantallaBienvenido.png"))
+        val bienvenido = SLabel(2, 2, ImageIcon("resources/image/pantallaBienvenido.png"))
         add(bienvenido)
     }
 
