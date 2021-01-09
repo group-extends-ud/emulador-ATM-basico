@@ -17,6 +17,7 @@ class Window: SPanel(150, 25, 980, 410) {
 
     var current: Current = Current.Apagado
         set(value) {
+            playClickSound()
             removeAll()
             when (value) {
                 Current.Final -> setFinal()

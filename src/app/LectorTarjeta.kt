@@ -36,6 +36,7 @@ abstract class LectorTarjeta: SPanel(900, 469, 340, 140, background = Color(43, 
                 this@LectorTarjeta.parent.parent.parent.parent.isEnabled = true
                 ventana.dispose()
             }
+            btnCerrar.addMouseListener(buttonListener)
             ventana.add(btnCerrar)
 
             if(numeroTarjeta == "") {
@@ -65,7 +66,7 @@ abstract class LectorTarjeta: SPanel(900, 469, 340, 140, background = Color(43, 
                         tarjetaIngresada()
                         ventana.dispose()
                     } else {
-                        1
+                        playWinXpErrorSound()
                         /*
                         JOptionPane.showMessageDialog(
                             null, "La tarjeta ingresada no se pudo validar, verifique el valor ingresado", "ERROR",
@@ -73,6 +74,7 @@ abstract class LectorTarjeta: SPanel(900, 469, 340, 140, background = Color(43, 
                         )*/
                     }
                 }
+                btnInsertar.addMouseListener(buttonListener)
                 ventana.add(btnInsertar)
             }
             else {
@@ -94,6 +96,7 @@ abstract class LectorTarjeta: SPanel(900, 469, 340, 140, background = Color(43, 
                 )
                 btnRetirar.addActionListener {
                     numeroTarjeta = ""
+                    playWinXpErrorSound()
                     /*
                     JOptionPane.showMessageDialog(
                         null, "Su tarjeta ha sido retirada exitosamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE
@@ -102,10 +105,12 @@ abstract class LectorTarjeta: SPanel(900, 469, 340, 140, background = Color(43, 
                     tarjetaRetirada()
                     ventana.dispose()
                 }
+                btnRetirar.addMouseListener(buttonListener)
                 ventana.add(btnRetirar)
             }
 
         }
+        laser.addMouseListener(buttonListener)
         add(laser)
     }
 

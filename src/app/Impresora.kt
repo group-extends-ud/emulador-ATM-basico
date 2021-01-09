@@ -68,6 +68,7 @@ class Impresora: SPanel(110, 470, 240, 80) {
                 JOptionPane.showMessageDialog(
                     null, "Su factura ha sido retirada exitosamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE
                 )*/
+                playRetirarFactura()
                 this@Impresora.parent.parent.parent.parent.isEnabled = true
                 ventana.dispose()
                 this@Impresora.parent.parent.repaint()

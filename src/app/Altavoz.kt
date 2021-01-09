@@ -14,9 +14,7 @@ fun playKeyboardPress() {
 }
 
 fun playCashRegister() {
-    object: Thread(
-        Runnable { cashRegisterSound.play() }
-    ){}.start()
+    cashRegisterSound.play()
 }
 
 fun playClickSound() {

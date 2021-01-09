@@ -4,7 +4,7 @@ import java.io.File
 import javax.sound.sampled.*
 
 class SClip {
-    private var playCompleted = false
+    
     private val audioClip: Clip
     private val audioStream: AudioInputStream
 
@@ -19,34 +19,17 @@ class SClip {
         val info = DataLine.Info(Clip::class.java, format)
 
         //obtain the Clip
-        audioClip = AudioSystem.getLine(info) as Clip
-        audioClip.addLineListener { event ->
-            if (event.type == LineEvent.Type.STOP) {
-                playCompleted = true
-            }
-        }
+        audioClip = AudioSystem.getClip()
+        audioClip.open(audioStream)
     }
 
     fun play() {
-        //open the AudioInputStream and start playing
-        playCompleted = false
-        audioClip.open(audioStream)
-        audioClip.microsecondPosition = 0L
-        audioClip.start()
-
-        //when finish...
-        while (!playCompleted) {
-            // wait for the playback completes
-            try {
-                Thread.sleep(500)
-            } catch (ex: InterruptedException) {
-                ex.printStackTrace()
+        object: Thread(
+            Runnable {
+                audioClip.framePosition = 0
+                audioClip.start()
             }
-        }
-
-        //close and release resources acquired
-        audioClip.close()
-        audioStream.close()
+        ){}.start()
     }
 
 }

@@ -7,6 +7,8 @@ import java.awt.Color
 import java.awt.GradientPaint
 import java.awt.Graphics
 import java.awt.Graphics2D
+import java.awt.event.MouseEvent
+import java.awt.event.MouseListener
 
 abstract class KeyBoard: SPanel(450, 440, 385, 270) {
 
@@ -18,12 +20,14 @@ abstract class KeyBoard: SPanel(450, 440, 385, 270) {
                 60, 50, i.toString(), background = white, foreground = black, backgroundEntered = mustard
             )
             btnNumberI.addActionListener { pressNumber(i) }
+            btnNumberI.addMouseListener(buttonListener)
             add(btnNumberI)
         }
         val btnNumber0 = SButton(
             99, 200, 60, 50, "0", background = white, foreground = black, backgroundEntered = mustard
         )
         btnNumber0.addActionListener { pressNumber(0) }
+        btnNumber0.addMouseListener(buttonListener)
         add(btnNumber0)
 
         //del button
@@ -32,6 +36,7 @@ abstract class KeyBoard: SPanel(450, 440, 385, 270) {
             border = ta2Border
         )
         btnDel.addActionListener { pressDel() }
+        btnDel.addMouseListener(buttonListener)
         add(btnDel)
 
         //cancel button
@@ -40,6 +45,7 @@ abstract class KeyBoard: SPanel(450, 440, 385, 270) {
             border = ta4Border
         )
         btnCancel.addActionListener { pressCancel() }
+        btnCancel.addMouseListener(buttonListener)
         add(btnCancel)
 
         //enter button
@@ -48,6 +54,7 @@ abstract class KeyBoard: SPanel(450, 440, 385, 270) {
             border = ta6Border
         )
         btnEnter.addActionListener { pressEnter() }
+        btnEnter.addMouseListener(buttonListener)
         add(btnEnter)
     }
 
@@ -64,6 +71,27 @@ abstract class KeyBoard: SPanel(450, 440, 385, 270) {
         val g2d = g as Graphics2D
         g2d.paint = GradientPaint(0F, 0F, Color(245, 245, 245), 0F, 270F, Color(102, 102, 102))
         g2d.fillRect(0, 0, 385, 270)
+    }
+
+}
+
+object buttonListener: MouseListener {
+
+    override fun mouseClicked(e: MouseEvent?) {
+    }
+
+    override fun mousePressed(e: MouseEvent?) {
+        playKeyboardPress()
+    }
+
+    override fun mouseReleased(e: MouseEvent?) {
+    }
+
+    override fun mouseEntered(e: MouseEvent?) {
+        playKeyboardRelease()
+    }
+
+    override fun mouseExited(e: MouseEvent?) {
     }
 
 }

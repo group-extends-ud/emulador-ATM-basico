@@ -87,6 +87,7 @@ class ATM: JFrame() {
                 null, "No posee el saldo requerido para el retiro", "Mensaje", JOptionPane.INFORMATION_MESSAGE
             )
              */
+            playWinXpErrorSound()
             window.current = Current.Operacion
         }
     }
@@ -202,6 +203,7 @@ class ATM: JFrame() {
                     override fun mouseReleased(e: MouseEvent?) { }
 
                     override fun mouseEntered(e: MouseEvent?) {
+                        playKeyboardRelease()
                         color1 = Color(245, 29, 29)
                         color2 = Color(109, 29, 29)
                     }
