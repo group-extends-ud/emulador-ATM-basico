@@ -31,6 +31,7 @@ class SClip {
         //open the AudioInputStream and start playing
         playCompleted = false
         audioClip.open(audioStream)
+        audioClip.microsecondPosition = 0L
         audioClip.start()
 
         //when finish...

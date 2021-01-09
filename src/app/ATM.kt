@@ -78,7 +78,7 @@ class ATM: JFrame() {
          */
         if(saldo>0 && Banco.verificarDisponibilidadSaldo(saldo)) {
             Banco.retirar(saldo)
-            Altavoz.playCashRegister()
+            playCashRegister()
             window.current = Current.Factura
         }
         else {
