@@ -16,6 +16,7 @@ import kotlin.system.exitProcess
 class ATM: JFrame() {
     val window = Window()
     private val impresora = Impresora()
+    private val dispensador = Dispensador()
 
     init {
         createATM()
@@ -31,7 +32,7 @@ class ATM: JFrame() {
     }
 
     private fun addDispensador() {
-        add(Dispensador())
+        add(dispensador)
     }
 
     private fun addImpresora() {
@@ -79,6 +80,8 @@ class ATM: JFrame() {
         if(saldo>0 && Banco.verificarDisponibilidadSaldo(saldo)) {
             Banco.retirar(saldo)
             playCashRegister()
+            efectivo += saldo
+            dispensador.actualizarEfectivo()
             window.current = Current.Factura
         }
         else {

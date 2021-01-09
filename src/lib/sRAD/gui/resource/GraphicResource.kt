@@ -44,6 +44,7 @@ val blueGray = Color(82, 125, 181)
 
 //others and specials
 val blackTransparent = Color(0F, 0F, 0F, 0.8F)
+val transparentMustard = Color(255F, 225F, 0F, 0.5.toFloat())
 val transparent = Color(0F, 0F, 0F, 0F)
 val superLightGray = Color(120, 120, 120)
 val megaDarkWhite = Color(180, 180, 180)

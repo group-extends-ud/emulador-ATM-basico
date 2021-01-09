@@ -9,14 +9,21 @@ import java.awt.Font
 import java.awt.event.MouseEvent
 import java.awt.event.MouseListener
 import javax.swing.Icon
+import javax.swing.ImageIcon
 import javax.swing.JButton
 import javax.swing.SwingConstants
 import javax.swing.border.Border
 
 open class SButton: JButton {
 
+    /**
+     * default button
+     */
     constructor()
 
+    /**
+     * text button
+     */
     constructor(x: Int, y: Int, width: Int, height: Int, text: String? = "", cursor: Cursor? = handCursor, font: Font? = fontTitleMini,
                 background: Color? = darkGray, foreground: Color? = darkWhite, border: Border? = semiDarkGray2Border,
                 hAlignment: String? = "CENTER", isSolid: Boolean = true, backgroundEntered: Color = semiDarkGray
@@ -24,25 +31,6 @@ open class SButton: JButton {
         setProperties(x, y, width, height, text, cursor, font, background, foreground, border, hAlignment, isSolid, backgroundEntered)
     }
 
-    /**
-     * Icon button
-     */
-    @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-    fun setProperties(x: Int, y: Int, icon: Icon?, cursor: Cursor? = handCursor) {
-        this.setLocation(x, y)
-        this.isContentAreaFilled = false
-        this.border = null
-        this.cursor = cursor
-        this.isFocusable = false
-        if (icon != null) {
-            this.setSize(icon.iconWidth, icon.iconHeight)
-            this.icon = icon
-        }
-    }
-
-    /**
-     * text button
-     */
     fun setProperties(x: Int, y: Int, width: Int, height: Int, text: String? = "", cursor: Cursor? = handCursor, font: Font? = fontTitleMini,
                       background: Color? = darkGray, foreground: Color? = darkWhite, border: Border? = semiDarkGray2Border,
                       hAlignment: String? = "CENTER", isSolid: Boolean = true, backgroundEntered: Color = semiDarkGray
@@ -73,6 +61,25 @@ open class SButton: JButton {
                 this@SButton.background = background
             }
         })
+    }
+
+    /**
+     * Icon button
+     */
+    constructor(x: Int, y: Int, icon: Icon?, cursor: Cursor? = handCursor) {
+        setProperties(x, y, icon, cursor)
+    }
+    @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+    fun setProperties(x: Int, y: Int, icon: Icon?, cursor: Cursor? = handCursor) {
+        this.setLocation(x, y)
+        this.isContentAreaFilled = false
+        this.border = null
+        this.cursor = cursor
+        this.isFocusable = false
+        if (icon != null) {
+            this.setSize(icon.iconWidth, icon.iconHeight)
+            this.icon = icon
+        }
     }
 
     /**
