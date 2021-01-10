@@ -96,7 +96,6 @@ abstract class LectorTarjeta: SPanel(900, 469, 340, 140, background = Color(43, 
                 )
                 btnRetirar.addActionListener {
                     numeroTarjeta = ""
-                    playWinXpErrorSound()
                     /*
                     JOptionPane.showMessageDialog(
                         null, "Su tarjeta ha sido retirada exitosamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE
