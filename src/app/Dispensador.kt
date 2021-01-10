@@ -22,7 +22,7 @@ class Dispensador: SPanel(30, 590, 400, 80), MouseListener {
     private val pAmarillo: SPanel
 
     init {
-        val pDecorador = SPanel(40, 35, 330, 10, Color(100, 118, 135))
+        val pDecorador = SButton(40, 35, 330, 10, cursor = defaultCursor, background = Color(100, 118, 135))
         add(pDecorador)
 
         pAmarillo = SPanel(60, 40, 280, 30, transparentMustard)

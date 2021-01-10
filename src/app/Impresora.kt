@@ -23,7 +23,7 @@ class Impresora: SPanel(110, 470, 240, 80) {
     private var datosFactura = ""
 
     init {
-        val pDecorador = SPanel(30, 35, 180, 10, Color(100, 118, 135))
+        val pDecorador = SButton(30, 35, 180, 10,cursor = defaultCursor, background = Color(100, 118, 135))
         add(pDecorador)
 
         factura.addActionListener {

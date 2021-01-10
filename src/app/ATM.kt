@@ -21,11 +21,11 @@ class ATM: JFrame() {
 
     init {
         createATM()
+        addImpresora()
+        addDispensador()
         addWindow()
         addOptionButtons()
         addKeyBoard()
-        addImpresora()
-        addDispensador()
         addLectorTarjeta()
         addBExit()
 
