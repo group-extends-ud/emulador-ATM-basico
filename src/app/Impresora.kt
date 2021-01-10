@@ -85,6 +85,7 @@ class Impresora: SPanel(110, 470, 240, 80) {
     }
 
     fun generarFactura() {
+        playImprimirFactura()
         parent.parent.remove(factura)
         parent.parent.add(factura)
         parent.parent.repaint()

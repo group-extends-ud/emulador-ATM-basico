@@ -8,7 +8,11 @@ private val keyboardReleaseSound = SClip("resources/sound/KeyboardReleaseSound.w
 private val retirarFacturaSound = SClip("resources/sound/retirarFactura.wav")
 private val winXpErrorSound = SClip("resources/sound/winXpErrorSound.wav")
 private val keyboardPressSound = SClip("resources/sound/KeyboardPressSound.wav")
+private val imprimirFactura = SClip("resources/sound/imprimirFactura.wav")
 
+fun playImprimirFactura() {
+    imprimirFactura.play()
+}
 fun playKeyboardPress() {
     keyboardPressSound.play()
 }
@@ -28,6 +32,7 @@ fun playKeyboardRelease() {
 fun playRetirarFactura() {
     retirarFacturaSound.play()
 }
+
 fun playWinXpErrorSound() {
     winXpErrorSound.play()
 }
