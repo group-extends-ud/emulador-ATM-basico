@@ -8,10 +8,7 @@ import server.Banco
 import java.awt.*
 import java.awt.event.MouseEvent
 import java.awt.event.MouseListener
-import javax.swing.JFrame
-import javax.swing.JPanel
-import javax.swing.JTextArea
-import javax.swing.JTextField
+import javax.swing.*
 import kotlin.system.exitProcess
 
 class ATM: JFrame() {
@@ -69,6 +66,52 @@ class ATM: JFrame() {
         btHelp.setProperties(1120, 629, 60, 60)
         btHelp.addActionListener { openPopUpHelp() }
         add(btHelp)
+
+        val btSound = object: SButton() {
+            var color1 = Color(245, 245, 245)
+            var color2 = Color(102, 102, 102)
+            val soundOn = SLabel(0, 0, ImageIcon("resources/image/soundOn.png"))
+            val soundOff = SLabel(0, 0, ImageIcon("resources/image/soundOff.png"))
+
+            init {
+                addActionListener {
+                    sonido = !sonido
+                    removeAll()
+                    add(if (sonido) soundOn else soundOff)
+                }
+                addMouseListener(object: MouseListener {
+                    override fun mouseClicked(e: MouseEvent?) { }
+
+                    override fun mousePressed(e: MouseEvent?) { }
+
+                    override fun mouseReleased(e: MouseEvent?) { }
+
+                    override fun mouseEntered(e: MouseEvent?) {
+                        playKeyboardRelease()
+                        color1 = Color(29, 245, 238)
+                        color2 = Color(29, 109, 102)
+                    }
+
+                    override fun mouseExited(e: MouseEvent?) {
+                        color1 = Color(245, 245, 245)
+                        color2 = Color(102, 102, 102)
+                    }
+                })
+
+                add(soundOn)
+
+                layout = null
+            }
+
+            override fun paintComponent(g: Graphics){
+                super.paintComponents(g)
+                val g2d = g as Graphics2D
+                g2d.paint = GradientPaint(0F, 0F, color1, 0F, 60F, color2)
+                g2d.fillRect(0, 0, 60, 60)
+            }
+        }
+        btSound.setProperties(1040, 629, 60, 60)
+        add(btSound)
 
         setProperties()
     }

@@ -2,6 +2,8 @@ package app
 
 import lib.sRAD.logic.SClip
 
+var sonido = true
+
 private val cashRegisterSound = SClip("resources/sound/cashRegister.wav")
 private val clickSound = SClip("resources/sound/clickSound.wav")
 private val keyboardReleaseSound = SClip("resources/sound/KeyboardReleaseSound.wav")
@@ -11,28 +13,35 @@ private val keyboardPressSound = SClip("resources/sound/KeyboardPressSound.wav")
 private val imprimirFactura = SClip("resources/sound/imprimirFactura.wav")
 
 fun playImprimirFactura() {
-    imprimirFactura.play()
+    if(sonido)
+        imprimirFactura.play()
 }
 fun playKeyboardPress() {
-    keyboardPressSound.play()
+    if(sonido)
+        keyboardPressSound.play()
 }
 
 fun playCashRegister() {
-    cashRegisterSound.play()
+    if(sonido)
+        cashRegisterSound.play()
 }
 
 fun playClickSound() {
-    clickSound.play()
+    if(sonido)
+        clickSound.play()
 }
 
 fun playKeyboardRelease() {
-    keyboardReleaseSound.play()
+    if(sonido)
+        keyboardReleaseSound.play()
 }
 
 fun playRetirarFactura() {
-    retirarFacturaSound.play()
+    if(sonido)
+        retirarFacturaSound.play()
 }
 
 fun playWinXpErrorSound() {
-    winXpErrorSound.play()
+    if(sonido)
+        winXpErrorSound.play()
 }
