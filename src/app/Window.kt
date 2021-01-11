@@ -8,24 +8,24 @@ import lib.sRAD.gui.tool.setProperties
 import lib.sRAD.logic.isInt
 import server.Banco
 import javax.swing.ImageIcon
-import javax.swing.JOptionPane
 import javax.swing.JPasswordField
 import javax.swing.JTextField
 
 class Window: SPanel(150, 25, 980, 410) {
-    var next = Current.Apagado
+    var siguienteEstado = Estado.Apagado
 
-    var current: Current = Current.Apagado
+    var estado: Estado = Estado.Apagado
         set(value) {
             playClickSound()
             removeAll()
             when (value) {
-                Current.Final -> setFinal()
-                Current.Factura -> setFactura()
-                Current.CustomMonto -> setCustomMonto()
-                Current.Monto -> setMonto()
-                Current.Password -> setPassword()
-                Current.Operacion -> setOperacion()
+                Estado.Final -> setFinal()
+                Estado.Factura -> setFactura()
+                Estado.MontoPersonalizado -> setCustomMonto()
+                Estado.SeleccionarMonto -> setMonto()
+                Estado.Contrasenia -> setPassword()
+                Estado.Transaccion -> setTransaccion()
+                Estado.EscogerOperacion -> setOperacion()
                 else -> setBienvenido()
             }
             field = value
@@ -33,18 +33,27 @@ class Window: SPanel(150, 25, 980, 410) {
         }
 
     private var tfPassword = JPasswordField()
-    private var tfMonto = JTextField()
+    private var tfNum = JTextField()
 
     init {
-        current = Current.Bienvenido
+        estado = Estado.Bienvenido
         tfPassword.setProperties(
             310, 210, 390, 50, background = white, editable = false, hAlignment = JTextField.RIGHT,
             foreground = black
         )
-        tfMonto.setProperties(
+        tfNum.setProperties(
             310, 210, 390, 50, background = white, editable = false, hAlignment = JTextField.RIGHT,
             foreground = black
         )
+    }
+
+    private fun setTransaccion() {
+        val operacion = SLabel(2, 2, ImageIcon("resources/image/pantallaTransaccion.png"))
+        add(operacion)
+
+        add(tfNum)
+        tfNum.text = "CARGANDO"
+        tfNum.text = ""
     }
 
     private fun setFinal() {
@@ -61,9 +70,9 @@ class Window: SPanel(150, 25, 980, 410) {
         val operacion = SLabel(2, 2, ImageIcon("resources/image/pantallaCustomMonto.png"))
         add(operacion)
 
-        add(tfMonto)
-        tfMonto.text = "CARGANDO"
-        tfMonto.text = ""
+        add(tfNum)
+        tfNum.text = "CARGANDO"
+        tfNum.text = ""
     }
 
     private fun setMonto() {
@@ -73,29 +82,29 @@ class Window: SPanel(150, 25, 980, 410) {
 
     @Suppress("DEPRECATION")
     fun validar() {
-        current = if (Banco.validarPassword(tfPassword.text)) {
-            next
+        estado = if (Banco.validarPassword(tfPassword.text)) {
+            siguienteEstado
         } else {
             //JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "ERROR", JOptionPane.ERROR_MESSAGE)
-            Current.Operacion
+            Estado.EscogerOperacion
         }
     }
 
     @Suppress("DEPRECATION")
     fun addPoint (i: Int) {
-        if (current == Current.Password)
+        if (estado == Estado.Contrasenia)
             tfPassword.text = "${tfPassword.text}$i"
         else
-            tfMonto.text = "${tfMonto.text}$i"
+            tfNum.text = "${tfNum.text}$i"
     }
 
     @Suppress("DEPRECATION")
     fun removePoint () {
-        if (current == Current.Password && tfPassword.text.isNotEmpty())
+        if (estado == Estado.Contrasenia && tfPassword.text.isNotEmpty())
             tfPassword.text = tfPassword.text.substring(0, tfPassword.text.length - 1)
 
-        else if(current == Current.CustomMonto && tfMonto.text.isNotEmpty())
-            tfMonto.text = tfMonto.text.substring(0, tfMonto.text.length - 1)
+        else if(estado == Estado.MontoPersonalizado && tfNum.text.isNotEmpty())
+            tfNum.text = tfNum.text.substring(0, tfNum.text.length - 1)
     }
 
     private fun setPassword() {
@@ -117,15 +126,23 @@ class Window: SPanel(150, 25, 980, 410) {
         add(bienvenido)
     }
 
-    fun obtenerSaldo(): Int {
-        if (tfMonto.text.isInt()) {
-            return tfMonto.text.toInt()
+    fun obtenerValor(): Int {
+        if (tfNum.text.isInt()) {
+            return tfNum.text.toInt()
         }
         return -1
     }
 
 }
 
-enum class Current {
-    Apagado, Bienvenido, Operacion, Password, Monto, CustomMonto, Factura, Final
+enum class Estado {
+    Apagado, //el cajero automatico se encuentra apagado inicialmente
+    Bienvenido, //espera el ingreso de alguna tarjeta
+    EscogerOperacion, //permite escoger si desea retirar, hacer una transaccion, o consultar
+    Contrasenia,
+    SeleccionarMonto,
+    MontoPersonalizado,
+    Factura,
+    Final,
+    Transaccion
 }

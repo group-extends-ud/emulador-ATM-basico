@@ -5,6 +5,7 @@ import lib.sRAD.gui.sComponent.SButton
 import lib.sRAD.gui.sComponent.SLabel
 import lib.sRAD.gui.tool.setProperties
 import server.Banco
+import server.Banco.validarTarjeta
 import java.awt.*
 import java.awt.event.MouseEvent
 import java.awt.event.MouseListener
@@ -164,8 +165,8 @@ class ATM: JFrame() {
 
         val text3 = JTextArea()
         text3.setProperties(40, 350, 530, 70, false,
-            text =  "Jean Carlos Santoya Cabrera - 20191020156.\n" +
-                    "Luis Alejandro Forigua Rojas - 20171020115.\n" +
+            text =  "Luis Alejandro Forigua Rojas - 20171020115.\n" +
+                    "Jean Carlos Santoya Cabrera - 20191020156.\n" +
                     "Jesús Manuel Leiva Bermúdez - 20191020132.\n",
             font = fontTitleMini, foreground =  black, background = null, border = null
         )
@@ -195,29 +196,36 @@ class ATM: JFrame() {
     private fun addKeyBoard() {
         add(object: KeyBoard() {
             override fun pressCancel() {
-                if(window.current != Current.Bienvenido && window.current != Current.Operacion) {
-                    window.current = Current.Operacion
+                if(window.estado != Estado.Bienvenido && window.estado != Estado.EscogerOperacion) {
+                    window.estado = Estado.EscogerOperacion
                 }
             }
 
             override fun pressDel() {
-                if (window.current == Current.Password || window.current == Current.CustomMonto) {
+                if (window.estado == Estado.Contrasenia || window.estado == Estado.MontoPersonalizado) {
                     window.removePoint()
                 }
             }
 
             override fun pressNumber(num: Int) {
-                if (window.current == Current.Password || window.current == Current.CustomMonto) {
+                if (window.estado == Estado.Contrasenia || window.estado == Estado.MontoPersonalizado ||
+                    window.estado == Estado.Transaccion
+                ) {
                     window.addPoint(num)
                 }
             }
 
             override fun pressEnter() {
-                if(window.current == Current.Password) {
+                if(window.estado == Estado.Contrasenia) {
                     window.validar()
                 }
-                if(window.current == Current.CustomMonto) {
-                    verificarDisponibilidadSaldo(window.obtenerSaldo())
+                else if(window.estado == Estado.MontoPersonalizado) {
+                    verificarDisponibilidadSaldo(window.obtenerValor())
+                }
+                else if(window.estado == Estado.Transaccion) {
+                    if(validarTarjeta(window.obtenerValor().toString())) {
+                        window.estado = Estado.SeleccionarMonto
+                    }
                 }
             }
         })
@@ -233,9 +241,14 @@ class ATM: JFrame() {
         if(saldo>0 && Banco.verificarDisponibilidadSaldo(saldo)) {
             Banco.retirar(saldo)
             playCashRegister()
-            efectivo += saldo
-            dispensador.actualizarEfectivo()
-            window.current = Current.Factura
+            if (window.siguienteEstado == Estado.Transaccion) {
+                Banco.realizarTransaccion(saldo, window.obtenerValor())
+            }
+            else {
+                efectivo += saldo
+                dispensador.actualizarEfectivo()
+            }
+            window.estado = Estado.Factura
         }
         else {
             /*
@@ -244,7 +257,7 @@ class ATM: JFrame() {
             )
              */
             playWinXpErrorSound()
-            window.current = Current.Operacion
+            window.estado = Estado.EscogerOperacion
         }
     }
 
@@ -292,34 +305,38 @@ class ATM: JFrame() {
     }
 
     private fun option(opcion: Int) {
-        if(window.current == Current.Operacion) {
+        if(window.estado == Estado.EscogerOperacion) {
             if (opcion == 0) {
-                window.next = Current.Monto
-                window.current = Current.Password
+                window.siguienteEstado = Estado.SeleccionarMonto
+                window.estado = Estado.Contrasenia
+            }
+            else if (opcion == 3){
+                window.siguienteEstado = Estado.Transaccion
+                window.estado = Estado.Contrasenia
             }
         }
-        else if (window.current == Current.Monto) {
+        else if (window.estado == Estado.SeleccionarMonto) {
             when (opcion) {
                 0 -> verificarDisponibilidadSaldo(10000)
                 1 -> verificarDisponibilidadSaldo(50000)
                 2 -> verificarDisponibilidadSaldo(200000)
                 3 -> verificarDisponibilidadSaldo(400000)
                 4 -> verificarDisponibilidadSaldo(600000)
-                5 -> window.current = Current.CustomMonto
+                5 -> window.estado = Estado.MontoPersonalizado
             }
         }
-        else if (window.current == Current.Factura) {
+        else if (window.estado == Estado.Factura) {
             if (opcion == 0){
                 impresora.generarFactura()
-                window.current = Current.Final
+                window.estado = Estado.Final
             }
             else if (opcion == 3) {
-                window.current = Current.Final
+                window.estado = Estado.Final
             }
         }
-        else if (window.current == Current.Final) {
+        else if (window.estado == Estado.Final) {
             if (opcion == 0){
-                window.current = Current.Operacion
+                window.estado = Estado.EscogerOperacion
             }
             else if (opcion == 3) {
                 numeroTarjeta = ""
@@ -328,7 +345,7 @@ class ATM: JFrame() {
                     null, "Su sesión ha finalizado exitosamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE
                 )
                  */
-                window.current = Current.Bienvenido
+                window.estado = Estado.Bienvenido
             }
         }
     }
@@ -392,11 +409,11 @@ class ATM: JFrame() {
     private fun addLectorTarjeta() {
         add(object: LectorTarjeta() {
             override fun tarjetaIngresada() {
-                window.current = Current.Operacion
+                window.estado = Estado.EscogerOperacion
             }
 
             override fun tarjetaRetirada() {
-                window.current = Current.Bienvenido
+                window.estado = Estado.Bienvenido
             }
         })
     }

@@ -29,4 +29,8 @@ public class Banco {
         return "Fecha: x\nNumero cuenta: x\nOtra lineaaaaaaaaaaaaaaaaaaaaaaaaa\nOtra linea\nOtra linea\nOtra linea\nOtra linea\nOtra linea" +
                 "\nOtra linea\nOtra linea\nOtra linea\nOtra linea\nOtra linea\nOtra linea\nOtra linea\nOtra linea";
     }
+
+    public static void realizarTransaccion(int saldo, int id) {
+        //por implementar
+    }
 }
