@@ -1,7 +1,5 @@
 package server;
 
-import com.fasterxml.jackson.databind.ser.Serializers;
-
 public class Banco {
     private static String lastID;
 

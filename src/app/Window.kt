@@ -26,6 +26,7 @@ class Window: SPanel(150, 25, 980, 410) {
                 Estado.Contrasenia -> setPassword()
                 Estado.Transaccion -> setTransaccion()
                 Estado.EscogerOperacion -> setOperacion()
+                Estado.Consulta -> setConsulta()
                 else -> setBienvenido()
             }
             field = value
@@ -45,6 +46,11 @@ class Window: SPanel(150, 25, 980, 410) {
             310, 210, 390, 50, background = white, editable = false, hAlignment = JTextField.RIGHT,
             foreground = black
         )
+    }
+
+    private fun setConsulta() {
+        val operacion = SLabel(2, 2, ImageIcon("resources/image/pantallaConsulta.png"))
+        add(operacion)
     }
 
     private fun setTransaccion() {
@@ -135,6 +141,9 @@ class Window: SPanel(150, 25, 980, 410) {
 
 }
 
+/**
+ * Estados en los que puede estar el ATM
+ */
 enum class Estado {
     Apagado, //el cajero automatico se encuentra apagado inicialmente
     Bienvenido, //espera el ingreso de alguna tarjeta
@@ -144,5 +153,7 @@ enum class Estado {
     MontoPersonalizado,
     Factura,
     Final,
-    Transaccion
+    Transaccion,
+    Consulta, //Permite seleccionar entre consulta de saldo, del ultimo movimiento o de los ultimos 5 movimientos
+    Saldo //Muestra el saldo disponible de la cuenta ingresada
 }

@@ -314,6 +314,9 @@ class ATM: JFrame() {
                 window.siguienteEstado = Estado.Transaccion
                 window.estado = Estado.Contrasenia
             }
+            else if (opcion == 1) {
+                window.estado = Estado.Consulta
+            }
         }
         else if (window.estado == Estado.SeleccionarMonto) {
             when (opcion) {
@@ -333,6 +336,10 @@ class ATM: JFrame() {
             else if (opcion == 3) {
                 window.estado = Estado.Final
             }
+        }
+        else if (window.estado == Estado.Consulta) {
+            window.estado = Estado.Contrasenia
+            window.siguienteEstado = Estado.Saldo
         }
         else if (window.estado == Estado.Final) {
             if (opcion == 0){
