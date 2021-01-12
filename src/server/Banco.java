@@ -46,4 +46,8 @@ public class Banco {
         return BaseDeDatos.last5(id);
     }
 
+    public static int obtenerSaldo(){
+        return BaseDeDatos.obtenerSaldo(lastID);
+    }
+
 }

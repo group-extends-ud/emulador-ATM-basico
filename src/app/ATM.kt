@@ -6,6 +6,7 @@ import lib.sRAD.gui.sComponent.SLabel
 import lib.sRAD.gui.tool.setProperties
 import server.Banco
 import server.Banco.validarTarjeta
+import server.BaseDeDatos.obtenerSaldo
 import java.awt.*
 import java.awt.event.MouseEvent
 import java.awt.event.MouseListener
@@ -306,16 +307,18 @@ class ATM: JFrame() {
 
     private fun option(opcion: Int) {
         if(window.estado == Estado.EscogerOperacion) {
-            if (opcion == 0) {
-                window.siguienteEstado = Estado.SeleccionarMonto
-                window.estado = Estado.Contrasenia
-            }
-            else if (opcion == 3){
-                window.siguienteEstado = Estado.Transaccion
-                window.estado = Estado.Contrasenia
-            }
-            else if (opcion == 1) {
-                window.estado = Estado.Consulta
+            when (opcion) {
+                0 -> {
+                    window.siguienteEstado = Estado.SeleccionarMonto
+                    window.estado = Estado.Contrasenia
+                }
+                3 -> {
+                    window.siguienteEstado = Estado.Transaccion
+                    window.estado = Estado.Contrasenia
+                }
+                1 -> {
+                    window.estado = Estado.Consulta
+                }
             }
         }
         else if (window.estado == Estado.SeleccionarMonto) {
@@ -339,7 +342,17 @@ class ATM: JFrame() {
         }
         else if (window.estado == Estado.Consulta) {
             window.estado = Estado.Contrasenia
-            window.siguienteEstado = Estado.Saldo
+            when (opcion){
+                0 -> {
+                    window.siguienteEstado = Estado.Saldo
+                    window.establecerSaldo(Banco.obtenerSaldo())
+                }
+                1 -> window.siguienteEstado = Estado.UltimoMovimiento
+                2 -> {
+                    window.siguienteEstado = Estado.Ultimos5Movimientos
+                }
+            }
+
         }
         else if (window.estado == Estado.Final) {
             if (opcion == 0){
@@ -354,6 +367,9 @@ class ATM: JFrame() {
                  */
                 window.estado = Estado.Bienvenido
             }
+        }
+        else if (window.estado == Estado.Saldo && opcion == 3){
+            window.estado = Estado.Factura
         }
     }
 

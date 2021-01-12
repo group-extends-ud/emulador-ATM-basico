@@ -1,6 +1,8 @@
 package app
 
 import lib.sRAD.gui.resource.black
+import lib.sRAD.gui.resource.fontTitle
+import lib.sRAD.gui.resource.fontTitle1
 import lib.sRAD.gui.resource.white
 import lib.sRAD.gui.sComponent.SLabel
 import lib.sRAD.gui.sComponent.SPanel
@@ -27,6 +29,7 @@ class Window: SPanel(150, 25, 980, 410) {
                 Estado.Transaccion -> setTransaccion()
                 Estado.EscogerOperacion -> setOperacion()
                 Estado.Consulta -> setConsulta()
+                Estado.Saldo -> setSaldo()
                 else -> setBienvenido()
             }
             field = value
@@ -35,8 +38,12 @@ class Window: SPanel(150, 25, 980, 410) {
 
     private var tfPassword = JPasswordField()
     private var tfNum = JTextField()
+    private val lSaldo = SLabel(
+        150, 210, 390, 50, font = fontTitle2, background = white, hAlignment = JTextField.RIGHT,
+        foreground = black)
 
     init {
+
         estado = Estado.Bienvenido
         tfPassword.setProperties(
             310, 210, 390, 50, background = white, editable = false, hAlignment = JTextField.RIGHT,
@@ -46,6 +53,17 @@ class Window: SPanel(150, 25, 980, 410) {
             310, 210, 390, 50, background = white, editable = false, hAlignment = JTextField.RIGHT,
             foreground = black
         )
+    }
+
+    fun establecerSaldo(saldo: Int) {
+        lSaldo.text = saldo.toString()
+    }
+
+    private fun setSaldo () {
+        add(lSaldo)
+
+        val operacion = SLabel(2, 2, ImageIcon("resources/image/pantallaSaldo.png"))
+        add(operacion)
     }
 
     private fun setConsulta() {
@@ -91,7 +109,6 @@ class Window: SPanel(150, 25, 980, 410) {
         estado = if (Banco.validarPassword(tfPassword.text)) {
             siguienteEstado
         } else {
-            //JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "ERROR", JOptionPane.ERROR_MESSAGE)
             Estado.EscogerOperacion
         }
     }
@@ -155,5 +172,7 @@ enum class Estado {
     Final,
     Transaccion,
     Consulta, //Permite seleccionar entre consulta de saldo, del ultimo movimiento o de los ultimos 5 movimientos
-    Saldo //Muestra el saldo disponible de la cuenta ingresada
+    Saldo, //Muestra el saldo disponible de la cuenta ingresada
+    UltimoMovimiento,
+    Ultimos5Movimientos
 }
