@@ -242,7 +242,7 @@ class ATM: JFrame() {
             Banco.retirar(saldo)
             playCashRegister()
             if (window.siguienteEstado == Estado.Transaccion) {
-                Banco.realizarTransaccion(saldo, window.obtenerValor())
+                Banco.realizarTransaccion(saldo, window.obtenerValor().toString())
             }
             else {
                 efectivo += saldo

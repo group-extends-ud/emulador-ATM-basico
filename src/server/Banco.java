@@ -1,5 +1,7 @@
 package server;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
+
 public class Banco {
     private static String lastID;
 
@@ -26,23 +28,24 @@ public class Banco {
     }
 
     public static boolean verificarDisponibilidadSaldo(int saldo) {
-        //por implementar
-        return true;
+        return saldo<=BaseDeDatos.obtenerSaldo(lastID);
     }
 
     //Transaccion: Retiro; Descripcion: cantidad
     public static void retirar(int saldo) {
-        //por implementar
+        BaseDeDatos.retiro(lastID, saldo);
     }
 
-    public static String datosUltimaOperacion(String numeroTarjeta) {
-        //por implementar
-        return "Fecha: x\nNumero cuenta: x\nOtra lineaaaaaaaaaaaaaaaaaaaaaaaaa\nOtra linea\nOtra linea\nOtra linea\nOtra linea\nOtra linea" +
-                "\nOtra linea\nOtra linea\nOtra linea\nOtra linea\nOtra linea\nOtra linea\nOtra linea\nOtra linea";
+    public static void realizarTransaccion(int saldo, String id) {
+        BaseDeDatos.transaccion(lastID, saldo, id);
     }
 
-
-    public static void realizarTransaccion(int saldo, int id) {
-        //por implementar
+    public static String datosUltimaOperacion(String id) {
+        return BaseDeDatos.last(id);
     }
+
+    public static String datosCincoUltimas(String id) {
+        return BaseDeDatos.last5(id);
+    }
+
 }
