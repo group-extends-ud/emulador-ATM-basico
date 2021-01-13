@@ -33,18 +33,28 @@ object BaseDeDatos {
     fun last(id: String): String {
         var last = APIRequest("{TransaccionesPorCuenta(idCuenta:\"$id\"){fecha{dia,mes,anno},id,operacionTipo,operacionDescripcion,idCuenta}}")
         last = last.substring(32, last.length)
-        var result = "dia = "
+        var result = "Día = "
         var j = 0
         for (i in last.indices) {
             if(last[i] == '=') {
                 for (k in i+1 until last.length-1) {
                     if (last[k]!=',' && last[k]!='=') {
-                        if (last[k].isDigit()) {
+                        if (last[k].isLetterOrDigit()) {
                             result+=last[k]
                         }
                     }
                     else {
-                        result += "\n"
+                        j++
+                        val text = when (j) {
+                            1 -> "Mes = "
+                            2 -> "Año = "
+                            3 -> "Id del movimiento = "
+                            4 -> "Tipo = "
+                            5 -> "Valor = "
+                            6 -> "Id de cuenta = "
+                            else -> return result
+                        }
+                        result += "\n$text"
                         break
                     }
                 }
