@@ -1,9 +1,6 @@
 package app
 
-import lib.sRAD.gui.resource.black
-import lib.sRAD.gui.resource.fontTitle
-import lib.sRAD.gui.resource.fontTitle1
-import lib.sRAD.gui.resource.white
+import lib.sRAD.gui.resource.*
 import lib.sRAD.gui.sComponent.SLabel
 import lib.sRAD.gui.sComponent.SPanel
 import lib.sRAD.gui.tool.setProperties
