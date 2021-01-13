@@ -38,12 +38,8 @@ public class Banco {
         BaseDeDatos.transaccion(lastID, saldo, id);
     }
 
-    public static String datosUltimaOperacion(String id) {
-        return BaseDeDatos.last(id);
-    }
-
-    public static String datosCincoUltimas(String id) {
-        return BaseDeDatos.last5(id);
+    public static String datosUltimaOperacion() {
+        return BaseDeDatos.last(lastID);
     }
 
     public static int obtenerSaldo(){

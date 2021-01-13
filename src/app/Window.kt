@@ -8,6 +8,7 @@ import lib.sRAD.logic.isInt
 import server.Banco
 import javax.swing.ImageIcon
 import javax.swing.JPasswordField
+import javax.swing.JTextArea
 import javax.swing.JTextField
 
 class Window: SPanel(150, 25, 980, 410) {
@@ -27,6 +28,7 @@ class Window: SPanel(150, 25, 980, 410) {
                 Estado.EscogerOperacion -> setOperacion()
                 Estado.Consulta -> setConsulta()
                 Estado.Saldo -> setSaldo()
+                Estado.UltimoMovimiento -> setUltimoMovimiento()
                 else -> setBienvenido()
             }
             field = value
@@ -38,8 +40,11 @@ class Window: SPanel(150, 25, 980, 410) {
     private val lSaldo = SLabel(
         150, 210, 390, 50, font = fontTitle2, background = white, hAlignment = JTextField.RIGHT,
         foreground = black)
+    private val taInfo = JTextArea()
 
     init {
+        taInfo.setProperties(150, 210, 390, 50, font = fontTitle2, background = null,
+            foreground = black)
 
         estado = Estado.Bienvenido
         tfPassword.setProperties(
@@ -52,6 +57,10 @@ class Window: SPanel(150, 25, 980, 410) {
         )
     }
 
+    fun establecerInformacion(info: String) {
+        taInfo.text = info
+    }
+
     fun establecerSaldo(saldo: Int) {
         lSaldo.text = saldo.toString()
     }
@@ -60,6 +69,13 @@ class Window: SPanel(150, 25, 980, 410) {
         add(lSaldo)
 
         val operacion = SLabel(2, 2, ImageIcon("resources/image/pantallaSaldo.png"))
+        add(operacion)
+    }
+
+    private fun setUltimoMovimiento() {
+        add(taInfo)
+
+        val operacion = SLabel(2, 2, ImageIcon("resources/image/pantallaUltimoMovimiento.png"))
         add(operacion)
     }
 
@@ -170,6 +186,5 @@ enum class Estado {
     Transaccion,
     Consulta, //Permite seleccionar entre consulta de saldo, del ultimo movimiento o de los ultimos 5 movimientos
     Saldo, //Muestra el saldo disponible de la cuenta ingresada
-    UltimoMovimiento,
-    Ultimos5Movimientos
+    UltimoMovimiento
 }

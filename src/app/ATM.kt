@@ -347,9 +347,9 @@ class ATM: JFrame() {
                     window.siguienteEstado = Estado.Saldo
                     window.establecerSaldo(Banco.obtenerSaldo())
                 }
-                1 -> window.siguienteEstado = Estado.UltimoMovimiento
-                2 -> {
-                    window.siguienteEstado = Estado.Ultimos5Movimientos
+                3 -> {
+                    window.siguienteEstado = Estado.UltimoMovimiento
+                    window.establecerInformacion(Banco.datosUltimaOperacion())
                 }
             }
 

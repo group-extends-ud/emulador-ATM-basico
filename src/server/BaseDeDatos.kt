@@ -36,12 +36,6 @@ object BaseDeDatos {
     }
 
     @JvmStatic
-    fun last5(id: String): String {
-        var last = APIRequest("")
-        return ""
-    }
-
-    @JvmStatic
     fun retiro(id: String, valor: Int) {
         1
     }
