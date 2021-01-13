@@ -43,7 +43,6 @@ object BaseDeDatos {
                         if (last[k].isLetterOrDigit()) {
                             result+=last[k]
                         }
-
                     }
                     else {
                         var l = k+1
@@ -84,18 +83,21 @@ object BaseDeDatos {
     @JvmStatic
     fun transaccion(id: String, valor: Int, toId: String): Boolean {
         return try {
-            APIRequest("mutation {CrearTransaccion(input:{operacionTipo:\"Transferencia\",idCuenta:$id,operacionDescripcion:\"$toId $valor\"}) {operacionTipo,idCuenta,operacionDescripcion}}")
+            APIRequest("mutation%7BCrearTransaccion(input%3A%7BoperacionTipo%3A\"Transferencia\"%2CidCuenta%3A$id%2CoperacionDescripcion%3A\"$toId%20$valor\"%7D)%7BoperacionTipo%2CidCuenta%2CoperacionDescripcion%7D%7D")
             true
         } catch (e: Exception) {
+            e.printStackTrace()
             false
         }
     }
 
     private fun obtenerContrasenia(id: String): Int {
         var contrasenia = APIRequest("{Cuenta(id:$id){contrasenna}}")
+        //elimina no numeros a la izquierda
         while (!contrasenia[0].isDigit()){
             contrasenia = contrasenia.substring(1,contrasenia.length)
         }
+        //elimina los no numeros a la derecha
         while (!contrasenia.last().isDigit()) {
             contrasenia = contrasenia.substring(0, contrasenia.length-1)
         }
@@ -105,7 +107,7 @@ object BaseDeDatos {
     private fun APIRequest(query: String): String {
         return try {
             // Create a neat value object to hold the URL
-            val url = URL("https://graphql-bank.herokuapp.com/graphql?query=$query")
+            val url = URL("https://graphql-bank.herokuapp.com/?query=$query")
 
             // Open a connection(?) on the URL(??) and cast the response(???)
             val connection: HttpURLConnection?

@@ -377,6 +377,9 @@ class ATM: JFrame() {
         }
     }
 
+    /**
+     * Crea el degradado del jframe
+     */
     private fun createATM() {
         val degradado = object: JPanel() {
             override fun paintComponent(g: Graphics) {
