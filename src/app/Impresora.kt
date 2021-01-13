@@ -32,7 +32,7 @@ class Impresora: SPanel(110, 470, 240, 80) {
             val ventana = JFrame()
             ventana.setProperties(450, 490, background = Color(245, 245, 245))
 
-            val title = SLabel(150, 30, 150, 30, "Factura", fontTitle2, foreground = black)
+            val title = SLabel(170, 30, 150, 30, "Factura", fontTitle2, foreground = black)
             ventana.add(title)
 
             val btnCerrar = SButton(
@@ -93,7 +93,7 @@ class Impresora: SPanel(110, 470, 240, 80) {
     }
 
     private fun actualizarFactura() {
-        datosFactura = Banco.datosUltimaOperacion(numeroTarjeta)
+        datosFactura = Banco.datosUltimaOperacion()
     }
 
 }

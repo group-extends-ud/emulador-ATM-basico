@@ -368,7 +368,10 @@ class ATM: JFrame() {
                 window.estado = Estado.Bienvenido
             }
         }
-        else if (window.estado == Estado.Saldo && opcion == 3){
+        else if (window.estado == Estado.Saldo && opcion == 3) {
+            window.estado = Estado.Final
+        }
+        else if(window.estado == Estado.UltimoMovimiento && opcion == 3) {
             window.estado = Estado.Factura
         }
     }

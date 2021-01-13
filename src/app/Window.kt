@@ -43,8 +43,8 @@ class Window: SPanel(150, 25, 980, 410) {
     private val taInfo = JTextArea()
 
     init {
-        taInfo.setProperties(150, 210, 390, 50, font = fontTitle2, background = null,
-            foreground = black)
+        taInfo.setProperties(250, 170, 500, 150, font = fontTitle2, background = transparent,
+            foreground = black, border = null, editable = false)
 
         estado = Estado.Bienvenido
         tfPassword.setProperties(

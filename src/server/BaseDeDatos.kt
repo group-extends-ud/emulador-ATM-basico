@@ -31,8 +31,26 @@ object BaseDeDatos {
 
     @JvmStatic
     fun last(id: String): String {
-        var last = APIRequest("")
-        return ""
+        var last = APIRequest("{TransaccionesPorCuenta(idCuenta:\"$id\"){fecha{dia,mes,anno},id,operacionTipo,operacionDescripcion,idCuenta}}")
+        last = last.substring(32, last.length)
+        var result = "dia = "
+        var j = 0
+        for (i in last.indices) {
+            if(last[i] == '=') {
+                for (k in i+1 until last.length-1) {
+                    if (last[k]!=',' && last[k]!='=') {
+                        if (last[k].isDigit()) {
+                            result+=last[k]
+                        }
+                    }
+                    else {
+                        result += "\n"
+                        break
+                    }
+                }
+            }
+        }
+        return result
     }
 
     @JvmStatic
