@@ -32,15 +32,22 @@ object BaseDeDatos {
     @JvmStatic
     fun last(id: String): String {
         var last = APIRequest("{TransaccionesPorCuenta(idCuenta:\"$id\"){fecha{dia,mes,anno},id,operacionTipo,operacionDescripcion,idCuenta}}")
-        last = last.substring(32, last.length)
+        last = if(last.length < 32) return "No hay transacciones disponibles" else last.substring(32, last.length)
         var result = "Día = "
         var j = 0
+        var cache = ""
         for (i in last.indices) {
             if(last[i] == '=') {
                 for (k in i+1 until last.length-1) {
-                    if (last[k]!=',' && last[k]!='=') {
+                    if (last[k]!=',' && last[k]!='=' && last[k]!=' ') {
                         if (last[k].isLetterOrDigit()) {
                             result+=last[k]
+                        }
+                        var l = k+1
+                        cache = ""
+                        while (last[l].isDigit()){
+                            cache+=last[l]
+                            l++
                         }
                     }
                     else {
@@ -50,8 +57,9 @@ object BaseDeDatos {
                             2 -> "Año = "
                             3 -> "Id del movimiento = "
                             4 -> "Tipo = "
-                            5 -> "Valor = "
-                            6 -> "Id de cuenta = "
+                            5 -> if(result.contains("Transferencia")) "Id de cuenta destino = " else "Valor = "
+                            6 -> if(result.contains("Transferencia")) "Valor = $cache\nId de cuenta = " else "Id de cuenta = "
+                            7 -> ""
                             else -> return result
                         }
                         result += "\n$text"
@@ -64,13 +72,23 @@ object BaseDeDatos {
     }
 
     @JvmStatic
-    fun retiro(id: String, valor: Int) {
-        1
+    fun retiro(id: String, valor: Int): Boolean {
+        return try {
+            APIRequest("mutation {CrearTransaccion(input:{operacionTipo:\"Retiro\",idCuenta:$id,operacionDescripcion:\"$valor\"}) {operacionTipo,idCuenta,operacionDescripcion}}")
+            true
+        } catch (e: Exception) {
+            false
+        }
     }
 
     @JvmStatic
-    fun transaccion(id: String, valor: Int, toId: String) {
-        1
+    fun transaccion(id: String, valor: Int, toId: String): Boolean {
+        return try {
+            APIRequest("mutation {CrearTransaccion(input:{operacionTipo:\"Transferencia\",idCuenta:$id,operacionDescripcion:\"$toId $valor\"}) {operacionTipo,idCuenta,operacionDescripcion}}")
+            true
+        } catch (e: Exception) {
+            false
+        }
     }
 
     private fun obtenerContrasenia(id: String): Int {
@@ -109,4 +127,5 @@ object BaseDeDatos {
             "null"
         }
     }
+
 }

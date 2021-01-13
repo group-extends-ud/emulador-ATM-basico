@@ -5,6 +5,7 @@ import lib.sRAD.gui.sComponent.SButton
 import lib.sRAD.gui.sComponent.SLabel
 import lib.sRAD.gui.tool.setProperties
 import server.Banco
+import server.Banco.existeCuenta
 import server.Banco.validarTarjeta
 import server.BaseDeDatos.obtenerSaldo
 import java.awt.*
@@ -203,7 +204,7 @@ class ATM: JFrame() {
             }
 
             override fun pressDel() {
-                if (window.estado == Estado.Contrasenia || window.estado == Estado.MontoPersonalizado) {
+                if (window.estado == Estado.Contrasenia || window.estado == Estado.MontoPersonalizado || window.estado == Estado.Transaccion) {
                     window.removePoint()
                 }
             }
@@ -224,7 +225,7 @@ class ATM: JFrame() {
                     verificarDisponibilidadSaldo(window.obtenerValor())
                 }
                 else if(window.estado == Estado.Transaccion) {
-                    if(validarTarjeta(window.obtenerValor().toString())) {
+                    if(existeCuenta(window.obtenerValor().toString())) {
                         window.estado = Estado.SeleccionarMonto
                     }
                 }

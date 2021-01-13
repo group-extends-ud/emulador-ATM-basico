@@ -16,6 +16,18 @@ public class Banco {
         return true;
     }
 
+    public static boolean existeCuenta(String text) {
+        //validar que no esta vacio
+        if(text.isEmpty())
+            return false;
+
+        //validar en la base de datos
+        if(!BaseDeDatos.contieneCuenta(text))
+            return false;
+
+        return true;
+    }
+
     public static boolean validarPassword(String password) {
         try {
             return BaseDeDatos.validarContrasenia(lastID, Integer.parseInt(password));
@@ -29,13 +41,12 @@ public class Banco {
         return saldo<=BaseDeDatos.obtenerSaldo(lastID);
     }
 
-    //Transaccion: Retiro; Descripcion: cantidad
     public static void retirar(int saldo) {
         BaseDeDatos.retiro(lastID, saldo);
     }
 
-    public static void realizarTransaccion(int saldo, String id) {
-        BaseDeDatos.transaccion(lastID, saldo, id);
+    public static boolean realizarTransaccion(int saldo, String id) {
+        return BaseDeDatos.transaccion(lastID, saldo, id);
     }
 
     public static String datosUltimaOperacion() {

@@ -43,7 +43,7 @@ class Window: SPanel(150, 25, 980, 410) {
     private val taInfo = JTextArea()
 
     init {
-        taInfo.setProperties(250, 170, 500, 150, font = fontTitle2, background = transparent,
+        taInfo.setProperties(250, 170, 500, 180, font = fontTitle2, background = transparent,
             foreground = black, border = null, editable = false)
 
         estado = Estado.Bienvenido
@@ -139,7 +139,7 @@ class Window: SPanel(150, 25, 980, 410) {
         if (estado == Estado.Contrasenia && tfPassword.text.isNotEmpty())
             tfPassword.text = tfPassword.text.substring(0, tfPassword.text.length - 1)
 
-        else if(estado == Estado.MontoPersonalizado && tfNum.text.isNotEmpty())
+        else if(tfNum.text.isNotEmpty() && (estado == Estado.MontoPersonalizado || estado == Estado.Transaccion))
             tfNum.text = tfNum.text.substring(0, tfNum.text.length - 1)
     }
 
