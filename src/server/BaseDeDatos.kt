@@ -43,14 +43,15 @@ object BaseDeDatos {
                         if (last[k].isLetterOrDigit()) {
                             result+=last[k]
                         }
+
+                    }
+                    else {
                         var l = k+1
                         cache = ""
                         while (last[l].isDigit()){
                             cache+=last[l]
                             l++
                         }
-                    }
-                    else {
                         j++
                         val text = when (j) {
                             1 -> "Mes = "
@@ -59,7 +60,6 @@ object BaseDeDatos {
                             4 -> "Tipo = "
                             5 -> if(result.contains("Transferencia")) "Id de cuenta destino = " else "Valor = "
                             6 -> if(result.contains("Transferencia")) "Valor = $cache\nId de cuenta = " else "Id de cuenta = "
-                            7 -> ""
                             else -> return result
                         }
                         result += "\n$text"
