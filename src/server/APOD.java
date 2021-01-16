@@ -1,11 +1,12 @@
 package server;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.Gson;
 
 public class APOD {
-    public final Object data;
+    public Gson data;
 
-    public APOD(@JsonProperty("data") Object data) {
-        this.data = data;
+    public APOD(Object data) {
+        this.data = new Gson();
+        System.out.println((data));
     }
 }
