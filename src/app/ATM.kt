@@ -241,7 +241,9 @@ class ATM: JFrame() {
         else if(Banco.verificarDisponibilidadSaldo(saldo)) {
          */
         if(saldo>0 && Banco.verificarDisponibilidadSaldo(saldo)) {
-            Banco.retirar(saldo)
+            if(window.siguienteEstado != Estado.Transaccion) {
+                Banco.retirar(saldo)
+            }
             playCashRegister()
             if (window.siguienteEstado == Estado.Transaccion) {
                 Banco.realizarTransaccion(saldo, window.obtenerValor().toString())
