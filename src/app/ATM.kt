@@ -4,10 +4,9 @@ import lib.sRAD.gui.resource.*
 import lib.sRAD.gui.sComponent.SButton
 import lib.sRAD.gui.sComponent.SLabel
 import lib.sRAD.gui.tool.setProperties
+import lib.sRAD.logic.toCOP
 import server.Banco
 import server.Banco.existeCuenta
-import server.Banco.validarTarjeta
-import server.BaseDeDatos.obtenerSaldo
 import java.awt.*
 import java.awt.event.MouseEvent
 import java.awt.event.MouseListener
@@ -348,7 +347,7 @@ class ATM: JFrame() {
             when (opcion){
                 0 -> {
                     window.siguienteEstado = Estado.Saldo
-                    window.establecerSaldo(Banco.obtenerSaldo())
+                    window.establecerSaldo(Banco.obtenerSaldo().toCOP())
                 }
                 3 -> {
                     window.siguienteEstado = Estado.UltimoMovimiento

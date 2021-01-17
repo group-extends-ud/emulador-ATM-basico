@@ -61,7 +61,7 @@ class Window: SPanel(150, 25, 980, 410) {
         taInfo.text = info
     }
 
-    fun establecerSaldo(saldo: Int) {
+    fun establecerSaldo(saldo: String) {
         lSaldo.text = saldo.toString()
     }
 
