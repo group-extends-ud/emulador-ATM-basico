@@ -35,7 +35,21 @@ object BaseDeDatos {
     @JvmStatic
     fun last(id: String): String {
         val transaccion = apiRequest("query UltimaTransaccion(\$id: ID!){Transaccion: UltimaTransaccion(idCuenta: \$id){id fecha operacionDescripcion operacionTipo idCuenta}}", Variables(id = id))?.getTransaccion()
-        return transaccion?.toString() ?: "No hay transacciones disponibles"
+            ?: return "No hay transacciones disponibles"
+
+        val last = transaccion.toString().substring(12, transaccion.toString().length-1)
+
+        var ultimaTransaccion = " "
+        for(i in last){
+            if(i == '=')
+                ultimaTransaccion += " = "
+            else if (i == ',')
+                ultimaTransaccion += "\n"
+            else
+                ultimaTransaccion += i
+        }
+
+        return ultimaTransaccion
     }
 
     @JvmStatic
