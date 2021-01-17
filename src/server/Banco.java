@@ -30,7 +30,7 @@ public class Banco {
 
     public static boolean validarPassword(String password) {
         try {
-            return BaseDeDatos.validarContrasenia(lastID, Integer.parseInt(password));
+            return BaseDeDatos.login(lastID, Integer.parseInt(password));
         }
         catch (Exception e) {
             return false;
