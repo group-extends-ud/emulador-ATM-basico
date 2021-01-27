@@ -1,6 +1,6 @@
 package app
 
-import lib.sRAD.logic.SClip
+import lib.sRAD.logic.sComponent.SClip
 
 var sonido = true
 

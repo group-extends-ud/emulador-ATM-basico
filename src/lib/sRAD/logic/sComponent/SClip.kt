@@ -1,4 +1,4 @@
-package lib.sRAD.logic
+package lib.sRAD.logic.sComponent
 
 import java.io.File
 import javax.sound.sampled.*

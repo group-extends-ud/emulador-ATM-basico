@@ -1,3 +1,9 @@
 bank.iml
-target
-.idea
+
+*.class
+*.kotlin_module
+*.MF
+
+*.idea/
+*out/
+*target/

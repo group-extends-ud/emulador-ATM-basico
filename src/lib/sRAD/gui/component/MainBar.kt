@@ -1,4 +1,4 @@
-package lib.sRAD.gui.component.mainBar
+package lib.sRAD.gui.component
 
 import lib.sRAD.gui.resource.*
 import lib.sRAD.gui.sComponent.SButton

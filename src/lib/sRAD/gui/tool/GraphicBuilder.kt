@@ -1,6 +1,6 @@
 package lib.sRAD.gui.tool
 
-import lib.sRAD.gui.component.mainBar.MainBar
+import lib.sRAD.gui.component.MainBar
 import lib.sRAD.gui.resource.*
 import lib.sRAD.gui.sComponent.SLabel
 import java.awt.*
@@ -35,7 +35,8 @@ fun JFrame.setBackground(path: String) {
 
 //JTextArea-----------------------------------------------------------------------------------------
 fun JTextArea.setProperties(x: Int, y: Int, width: Int, height: Int, editable: Boolean = true, lineWrap: Boolean = true, text: String? = "",
-                            foreground: Color? = darkWhite, background: Color? = darkGray, font: Font? = fontText, border: Border? = semiDarkGray2Border
+                            foreground: Color? = darkWhite, background: Color? = darkGray, font: Font? = fontText, border: Border? = semiDarkGray2Border,
+                            hAlignment: Float = JTextArea.LEFT_ALIGNMENT
 ) {
     this.setBounds(x, y, width, height)
     this.text = text
@@ -47,6 +48,7 @@ fun JTextArea.setProperties(x: Int, y: Int, width: Int, height: Int, editable: B
     this.border = border
     this.wrapStyleWord = lineWrap
     this.lineWrap = lineWrap
+    this.alignmentX = hAlignment
 }
 
 //JTextField-----------------------------------------------------------------------------------------
