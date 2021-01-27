@@ -14,12 +14,13 @@ import javax.swing.*
 import kotlin.system.exitProcess
 
 class ATM: JFrame() {
-    val window = Window()
+    private val window = Window()
+    private val altavoz = Altavoz()
     private val impresora = Impresora()
     private val dispensador = Dispensador()
 
     init {
-        createATM()
+        drawATM()
         addImpresora()
         addDispensador()
         addWindow()
@@ -41,7 +42,7 @@ class ATM: JFrame() {
                     override fun mouseReleased(e: MouseEvent?) { }
 
                     override fun mouseEntered(e: MouseEvent?) {
-                        playKeyboardRelease()
+                        altavoz.playKeyboardRelease()
                         color1 = Color(29, 245, 29)
                         color2 = Color(29, 109, 29)
                     }
@@ -77,9 +78,9 @@ class ATM: JFrame() {
 
             init {
                 addActionListener {
-                    sonido = !sonido
+                    altavoz.sonido = !altavoz.sonido
                     removeAll()
-                    add(if (sonido) soundOn else soundOff)
+                    add(if (altavoz.sonido) soundOn else soundOff)
                 }
                 addMouseListener(object: MouseListener {
                     override fun mouseClicked(e: MouseEvent?) { }
@@ -89,7 +90,7 @@ class ATM: JFrame() {
                     override fun mouseReleased(e: MouseEvent?) { }
 
                     override fun mouseEntered(e: MouseEvent?) {
-                        playKeyboardRelease()
+                        altavoz.playKeyboardRelease()
                         color1 = Color(29, 245, 238)
                         color2 = Color(29, 109, 102)
                     }
@@ -186,10 +187,16 @@ class ATM: JFrame() {
 
     }
 
+    /**
+     * añade el dispensador
+     */
     private fun addDispensador() {
         add(dispensador)
     }
 
+    /**
+     * Añade la impresora
+     */
     private fun addImpresora() {
         add(impresora)
     }
@@ -243,7 +250,7 @@ class ATM: JFrame() {
             if(window.siguienteEstado != Estado.Transaccion) {
                 Banco.retirar(saldo)
             }
-            playCashRegister()
+            altavoz.playCashRegister()
             if (window.siguienteEstado == Estado.Transaccion) {
                 Banco.realizarTransaccion(saldo, window.obtenerValor().toString())
             }
@@ -259,50 +266,21 @@ class ATM: JFrame() {
                 null, "No posee el saldo requerido para el retiro", "Mensaje", JOptionPane.INFORMATION_MESSAGE
             )
              */
-            playWinXpErrorSound()
+            altavoz.playWinXpErrorSound()
             window.estado = Estado.EscogerOperacion
         }
     }
 
+    /**
+     * Añade los botones de opcion
+     */
     private fun addOptionButtons() {
         for (i in 0 until 6) {
-            val optionButton = object: SButton()  {
-                var color1 = Color(245, 245, 245)
-                var color2 = Color(102, 102, 102)
-                init {
-                    addMouseListener(object: MouseListener{
-                        override fun mouseClicked(e: MouseEvent?) { }
-
-                        override fun mousePressed(e: MouseEvent?) { }
-
-                        override fun mouseReleased(e: MouseEvent?) { }
-
-                        override fun mouseEntered(e: MouseEvent?) {
-                            color1 = mustard
-                            color2 = Color(109, 109, 29)
-                        }
-
-                        override fun mouseExited(e: MouseEvent?) {
-                            color1 = Color(245, 245, 245)
-                            color2 = Color(102, 102, 102)
-                        }
-                    })
-                    addActionListener { option(i) }
-                }
-
-                override fun paintComponent(g: Graphics) {
-                    super.paintComponents(g)
-                    val g2d = g as Graphics2D
-                    g2d.paint = GradientPaint(0F, 0F, color1, 0F, 70F, color2)
-                    g2d.fillRect(0, 0, 120, 60)
+            val optionButton = object: OptionButton(i) {
+                override fun mouseClicked(e: MouseEvent?) {
+                    option(i)
                 }
             }
-            optionButton.setProperties(
-                if(i<3) 20 else 1140,
-                when(i % 3){0 -> 30; 1 -> 200; else -> 360 },
-                120,
-                60
-            )
             add(optionButton)
         }
     }
@@ -379,9 +357,9 @@ class ATM: JFrame() {
     }
 
     /**
-     * Crea el degradado del jframe
+     * Crea el degradado del frame
      */
-    private fun createATM() {
+    private fun drawATM() {
         val degradado = object: JPanel() {
             override fun paintComponent(g: Graphics) {
                 super.paintComponents(g)
@@ -407,7 +385,7 @@ class ATM: JFrame() {
                     override fun mouseReleased(e: MouseEvent?) { }
 
                     override fun mouseEntered(e: MouseEvent?) {
-                        playKeyboardRelease()
+                        altavoz.playKeyboardRelease()
                         color1 = Color(245, 29, 29)
                         color2 = Color(109, 29, 29)
                     }
@@ -449,6 +427,9 @@ class ATM: JFrame() {
         })
     }
 
+    /**
+     * Añade la ventana del ATM al frame
+     */
     private fun addWindow() {
         add(window)
     }
