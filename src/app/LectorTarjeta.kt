@@ -8,7 +8,6 @@ import lib.sRAD.gui.tool.setProperties
 import server.Banco
 import java.awt.Color
 import javax.swing.JFrame
-import javax.swing.JOptionPane
 import javax.swing.JTextField
 
 var numeroTarjeta = ""
@@ -36,7 +35,7 @@ abstract class LectorTarjeta: SPanel(900, 469, 340, 140, background = Color(43, 
                 this@LectorTarjeta.parent.parent.parent.parent.isEnabled = true
                 ventana.dispose()
             }
-            btnCerrar.addMouseListener(buttonListener)
+            btnCerrar.addMouseListener(ButtonListener)
             ventana.add(btnCerrar)
 
             if(numeroTarjeta == "") {
@@ -58,23 +57,14 @@ abstract class LectorTarjeta: SPanel(900, 469, 340, 140, background = Color(43, 
                 btnInsertar.addActionListener {
                     if (Banco.validarTarjeta(tfNum.text)) {
                         numeroTarjeta = tfNum.text
-                        /*
-                        JOptionPane.showMessageDialog(
-                            null, "Su tarjeta ha sido validada exitosamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE
-                        )*/
                         this@LectorTarjeta.parent.parent.parent.parent.isEnabled = true
                         tarjetaIngresada()
                         ventana.dispose()
                     } else {
-                        playWinXpErrorSound()
-                        /*
-                        JOptionPane.showMessageDialog(
-                            null, "La tarjeta ingresada no se pudo validar, verifique el valor ingresado", "ERROR",
-                            JOptionPane.ERROR_MESSAGE
-                        )*/
+                        Altavoz.playWinXpErrorSound()
                     }
                 }
-                btnInsertar.addMouseListener(buttonListener)
+                btnInsertar.addMouseListener(ButtonListener)
                 ventana.add(btnInsertar)
             }
             else {
@@ -96,20 +86,16 @@ abstract class LectorTarjeta: SPanel(900, 469, 340, 140, background = Color(43, 
                 )
                 btnRetirar.addActionListener {
                     numeroTarjeta = ""
-                    /*
-                    JOptionPane.showMessageDialog(
-                        null, "Su tarjeta ha sido retirada exitosamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE
-                    )*/
                     this@LectorTarjeta.parent.parent.parent.parent.isEnabled = true
                     tarjetaRetirada()
                     ventana.dispose()
                 }
-                btnRetirar.addMouseListener(buttonListener)
+                btnRetirar.addMouseListener(ButtonListener)
                 ventana.add(btnRetirar)
             }
 
         }
-        laser.addMouseListener(buttonListener)
+        laser.addMouseListener(ButtonListener)
         add(laser)
     }
 

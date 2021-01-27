@@ -17,7 +17,8 @@ import javax.swing.JTextField
 
 var efectivo = 0
 
-class Dispensador: SPanel(30, 590, 400, 80), MouseListener {
+open class Dispensador: SPanel(30, 590, 400, 80), MouseListener {
+
     private val btDinero: SButton
     private val pAmarillo: SPanel
 
@@ -56,7 +57,7 @@ class Dispensador: SPanel(30, 590, 400, 80), MouseListener {
             parent.parent.parent.parent.isEnabled = true
             ventana.dispose()
         }
-        btnCerrar.addMouseListener(buttonListener)
+        btnCerrar.addMouseListener(ButtonListener)
         ventana.add(btnCerrar)
 
         val lNum = SLabel(
@@ -77,16 +78,12 @@ class Dispensador: SPanel(30, 590, 400, 80), MouseListener {
         )
         btnRetirar.addActionListener {
             efectivo = 0
-            playRetirarFactura()
+            Altavoz.playRetirarFactura()
             actualizarEfectivo()
-            /*
-            JOptionPane.showMessageDialog(
-                null, "Su tarjeta ha sido retirada exitosamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE
-            )*/
             parent.parent.parent.parent.isEnabled = true
             ventana.dispose()
         }
-        btnRetirar.addMouseListener(buttonListener)
+        btnRetirar.addMouseListener(ButtonListener)
         ventana.add(btnRetirar)
     }
 
@@ -102,7 +99,7 @@ class Dispensador: SPanel(30, 590, 400, 80), MouseListener {
     }
 
     override fun mouseClicked(e: MouseEvent?) {
-        playKeyboardPress()
+        Altavoz.playKeyboardPress()
         openPopUpEfectivo()
     }
 
@@ -113,7 +110,7 @@ class Dispensador: SPanel(30, 590, 400, 80), MouseListener {
     }
 
     override fun mouseEntered(e: MouseEvent?) {
-        playKeyboardRelease()
+        Altavoz.playKeyboardRelease()
         pAmarillo.isVisible = true
     }
 

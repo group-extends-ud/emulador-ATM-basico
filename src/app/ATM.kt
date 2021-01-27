@@ -9,116 +9,61 @@ import server.Banco
 import server.Banco.existeCuenta
 import java.awt.*
 import java.awt.event.MouseEvent
-import java.awt.event.MouseListener
 import javax.swing.*
-import kotlin.system.exitProcess
 
 class ATM: JFrame() {
-    private val window = Window()
-    private val altavoz = Altavoz()
-    private val impresora = Impresora()
-    private val dispensador = Dispensador()
+    private val window: Window
+    private val impresora: Impresora
+    private val dispensador: Dispensador
 
     init {
+        //degradado
         drawATM()
-        addImpresora()
-        addDispensador()
-        addWindow()
-        addOptionButtons()
-        addKeyBoard()
-        addLectorTarjeta()
-        addBExit()
 
-        val btHelp = object: SButton() {
-            var color1 = Color(245, 245, 245)
-            var color2 = Color(102, 102, 102)
+        //impresora
+        impresora = Impresora()
+        add(impresora)
 
-            init {
-                addMouseListener(object: MouseListener {
-                    override fun mouseClicked(e: MouseEvent?) { }
+        //dispensador
+        dispensador = Dispensador()
+        add(dispensador)
 
-                    override fun mousePressed(e: MouseEvent?) { }
+        //window
+        window = Window()
+        add(window)
 
-                    override fun mouseReleased(e: MouseEvent?) { }
-
-                    override fun mouseEntered(e: MouseEvent?) {
-                        altavoz.playKeyboardRelease()
-                        color1 = Color(29, 245, 29)
-                        color2 = Color(29, 109, 29)
-                    }
-
-                    override fun mouseExited(e: MouseEvent?) {
-                        color1 = Color(245, 245, 245)
-                        color2 = Color(102, 102, 102)
-                    }
-                })
-
-                val lHelp = SLabel(7, 20, 50, 20, "HELP", foreground = black)
-                add(lHelp)
-
-                layout = null
-            }
-
-            override fun paintComponent(g: Graphics){
-                super.paintComponents(g)
-                val g2d = g as Graphics2D
-                g2d.paint = GradientPaint(0F, 0F, color1, 0F, 60F, color2)
-                g2d.fillRect(0, 0, 60, 60)
-            }
-        }
-        btHelp.setProperties(1120, 629, 60, 60)
-        btHelp.addActionListener { openPopUpHelp() }
-        add(btHelp)
-
-        val btSound = object: SButton() {
-            var color1 = Color(245, 245, 245)
-            var color2 = Color(102, 102, 102)
-            val soundOn = SLabel(0, 0, ImageIcon("resources/image/soundOn.png"))
-            val soundOff = SLabel(0, 0, ImageIcon("resources/image/soundOff.png"))
-
-            init {
-                addActionListener {
-                    altavoz.sonido = !altavoz.sonido
-                    removeAll()
-                    add(if (altavoz.sonido) soundOn else soundOff)
+        //botones de opcion
+        for (i in 0 until 6) {
+            val optionButton = object: OptionButton(i) {
+                override fun mouseClicked(e: MouseEvent?) {
+                    option(i)
                 }
-                addMouseListener(object: MouseListener {
-                    override fun mouseClicked(e: MouseEvent?) { }
-
-                    override fun mousePressed(e: MouseEvent?) { }
-
-                    override fun mouseReleased(e: MouseEvent?) { }
-
-                    override fun mouseEntered(e: MouseEvent?) {
-                        altavoz.playKeyboardRelease()
-                        color1 = Color(29, 245, 238)
-                        color2 = Color(29, 109, 102)
-                    }
-
-                    override fun mouseExited(e: MouseEvent?) {
-                        color1 = Color(245, 245, 245)
-                        color2 = Color(102, 102, 102)
-                    }
-                })
-
-                add(soundOn)
-
-                layout = null
             }
-
-            override fun paintComponent(g: Graphics){
-                super.paintComponents(g)
-                val g2d = g as Graphics2D
-                g2d.paint = GradientPaint(0F, 0F, color1, 0F, 60F, color2)
-                g2d.fillRect(0, 0, 60, 60)
-            }
+            add(optionButton)
         }
-        btSound.setProperties(1040, 629, 60, 60)
-        add(btSound)
 
+        //teclado
+        addKeyBoard()
+
+        //lector de tarjeta
+        addLectorTarjeta()
+
+        //boton para salir
+        add(ExitButton())
+
+        //boton de ayuda
+        addBHelp()
+
+        //boton de sonido
+        add(SoundButton())
+
+        //propiedades del frame
         setProperties()
     }
 
+    /**
+     * Dibuja una ventana emergente con la información de ayuda
+     */
     private fun openPopUpHelp() {
         isEnabled = false
 
@@ -147,7 +92,7 @@ class ATM: JFrame() {
         )
         ventana.add(text1)
 
-        //Pasos para realizar una operación
+        //pasos para realizar una operación
         val title2 = SLabel(215, 170, 250, 30, "Realizar operación", fontTitle2, foreground = black)
         ventana.add(title2)
 
@@ -174,7 +119,6 @@ class ATM: JFrame() {
         )
         ventana.add(text3)
 
-
         val btnCerrar = SButton(
             230, 435, 128, 50, "CERRAR", background = ta5, backgroundEntered = mustard, border = ta6Border, foreground = black
         )
@@ -182,25 +126,14 @@ class ATM: JFrame() {
             isEnabled = true
             ventana.dispose()
         }
-        btnCerrar.addMouseListener(buttonListener)
+        btnCerrar.addMouseListener(ButtonListener)
         ventana.add(btnCerrar)
 
     }
 
     /**
-     * añade el dispensador
+     * Añade el teclado
      */
-    private fun addDispensador() {
-        add(dispensador)
-    }
-
-    /**
-     * Añade la impresora
-     */
-    private fun addImpresora() {
-        add(impresora)
-    }
-
     private fun addKeyBoard() {
         add(object: KeyBoard() {
             override fun pressCancel() {
@@ -208,21 +141,16 @@ class ATM: JFrame() {
                     window.estado = Estado.EscogerOperacion
                 }
             }
-
             override fun pressDel() {
                 if (window.estado == Estado.Contrasenia || window.estado == Estado.MontoPersonalizado || window.estado == Estado.Transaccion) {
                     window.removePoint()
                 }
             }
-
             override fun pressNumber(num: Int) {
-                if (window.estado == Estado.Contrasenia || window.estado == Estado.MontoPersonalizado ||
-                    window.estado == Estado.Transaccion
-                ) {
+                if (window.estado == Estado.Contrasenia || window.estado == Estado.MontoPersonalizado || window.estado == Estado.Transaccion) {
                     window.addPoint(num)
                 }
             }
-
             override fun pressEnter() {
                 if(window.estado == Estado.Contrasenia) {
                     window.validar()
@@ -230,30 +158,20 @@ class ATM: JFrame() {
                 else if(window.estado == Estado.MontoPersonalizado) {
                     verificarDisponibilidadSaldo(window.obtenerValor())
                 }
-                else if(window.estado == Estado.Transaccion) {
-                    if(existeCuenta(window.obtenerValor().toString())) {
-                        window.estado = Estado.SeleccionarMonto
-                    }
+                else if(window.estado == Estado.Transaccion && existeCuenta(window.obtenerValor().toString())) {
+                    window.estado = Estado.SeleccionarMonto
                 }
             }
         })
     }
 
     private fun verificarDisponibilidadSaldo(saldo: Int) {
-        /*
-        if(saldo <= 0) {
-            JOptionPane.showMessageDialog(null, "Valor ingresado inválido", "ERROR", JOptionPane.ERROR_MESSAGE)
-        }
-        else if(Banco.verificarDisponibilidadSaldo(saldo)) {
-         */
         if(saldo>0 && Banco.verificarDisponibilidadSaldo(saldo)) {
-            if(window.siguienteEstado != Estado.Transaccion) {
+            if(window.siguienteEstado != Estado.Transaccion)
                 Banco.retirar(saldo)
-            }
-            altavoz.playCashRegister()
-            if (window.siguienteEstado == Estado.Transaccion) {
+            Altavoz.playCashRegister()
+            if (window.siguienteEstado == Estado.Transaccion)
                 Banco.realizarTransaccion(saldo, window.obtenerValor().toString())
-            }
             else {
                 efectivo += saldo
                 dispensador.actualizarEfectivo()
@@ -261,27 +179,8 @@ class ATM: JFrame() {
             window.estado = Estado.Factura
         }
         else {
-            /*
-            JOptionPane.showMessageDialog(
-                null, "No posee el saldo requerido para el retiro", "Mensaje", JOptionPane.INFORMATION_MESSAGE
-            )
-             */
-            altavoz.playWinXpErrorSound()
+            Altavoz.playWinXpErrorSound()
             window.estado = Estado.EscogerOperacion
-        }
-    }
-
-    /**
-     * Añade los botones de opcion
-     */
-    private fun addOptionButtons() {
-        for (i in 0 until 6) {
-            val optionButton = object: OptionButton(i) {
-                override fun mouseClicked(e: MouseEvent?) {
-                    option(i)
-                }
-            }
-            add(optionButton)
         }
     }
 
@@ -340,11 +239,6 @@ class ATM: JFrame() {
             }
             else if (opcion == 3) {
                 numeroTarjeta = ""
-                /*
-                JOptionPane.showMessageDialog(
-                    null, "Su sesión ha finalizado exitosamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE
-                )
-                 */
                 window.estado = Estado.Bienvenido
             }
         }
@@ -371,56 +265,14 @@ class ATM: JFrame() {
         contentPane = degradado
     }
 
-    private fun addBExit() {
-        val bExit = object: SButton() {
-            var color1 = Color(245, 245, 245)
-            var color2 = Color(102, 102, 102)
-
-            init {
-                addMouseListener(object: MouseListener {
-                    override fun mouseClicked(e: MouseEvent?) { }
-
-                    override fun mousePressed(e: MouseEvent?) { }
-
-                    override fun mouseReleased(e: MouseEvent?) { }
-
-                    override fun mouseEntered(e: MouseEvent?) {
-                        altavoz.playKeyboardRelease()
-                        color1 = Color(245, 29, 29)
-                        color2 = Color(109, 29, 29)
-                    }
-
-                    override fun mouseExited(e: MouseEvent?) {
-                        color1 = Color(245, 245, 245)
-                        color2 = Color(102, 102, 102)
-                    }
-                })
-
-                val lExit = SLabel(12, 20, 40, 20, "EXIT", foreground = black)
-                add(lExit)
-
-                layout = null
-            }
-
-            override fun paintComponent(g: Graphics){
-                super.paintComponents(g)
-                val g2d = g as Graphics2D
-                g2d.paint = GradientPaint(0F, 0F, color1, 0F, 60F, color2)
-                g2d.fillRect(0, 0, 60, 60)
-            }
-
-        }
-        bExit.setProperties(1200, 629, 60, 60)
-        bExit.addActionListener { exitProcess(0) }
-        add(bExit)
-    }
-
+    /**
+     * Añade el lector de tarjeta
+     */
     private fun addLectorTarjeta() {
         add(object: LectorTarjeta() {
             override fun tarjetaIngresada() {
                 window.estado = Estado.EscogerOperacion
             }
-
             override fun tarjetaRetirada() {
                 window.estado = Estado.Bienvenido
             }
@@ -428,10 +280,15 @@ class ATM: JFrame() {
     }
 
     /**
-     * Añade la ventana del ATM al frame
+     * Añade el boton de ayuda
      */
-    private fun addWindow() {
-        add(window)
+    private fun addBHelp() {
+        val btHelp = object: HelpButton() {
+            override fun mouseClicked(e: MouseEvent?) {
+                openPopUpHelp()
+            }
+        }
+        add(btHelp)
     }
 
 }

@@ -14,7 +14,7 @@ import javax.swing.JFrame
 import javax.swing.JOptionPane
 import javax.swing.JTextArea
 
-class Impresora: SPanel(110, 470, 240, 80) {
+open class Impresora: SPanel(110, 470, 240, 80) {
 
     private var factura = SButton(
         170, 514, 120, 60,"-----------", background = white, backgroundEntered = mustard, foreground = black
@@ -64,11 +64,7 @@ class Impresora: SPanel(110, 470, 240, 80) {
             )
             btnRetirar.addActionListener {
                 this@Impresora.parent.parent.remove(factura)
-                /*
-                JOptionPane.showMessageDialog(
-                    null, "Su factura ha sido retirada exitosamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE
-                )*/
-                playRetirarFactura()
+                Altavoz.playRetirarFactura()
                 this@Impresora.parent.parent.parent.parent.isEnabled = true
                 ventana.dispose()
                 this@Impresora.parent.parent.repaint()
@@ -84,8 +80,8 @@ class Impresora: SPanel(110, 470, 240, 80) {
         g2d.fillRect(0, 0, 240, 80)
     }
 
-    fun generarFactura() {
-        playImprimirFactura()
+    open fun generarFactura() {
+        Altavoz.playImprimirFactura()
         parent.parent.remove(factura)
         parent.parent.add(factura)
         parent.parent.repaint()

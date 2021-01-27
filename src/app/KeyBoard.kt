@@ -20,14 +20,14 @@ abstract class KeyBoard: SPanel(450, 440, 385, 270) {
                 60, 50, i.toString(), background = white, foreground = black, backgroundEntered = mustard
             )
             btnNumberI.addActionListener { pressNumber(i) }
-            btnNumberI.addMouseListener(buttonListener)
+            btnNumberI.addMouseListener(ButtonListener)
             add(btnNumberI)
         }
         val btnNumber0 = SButton(
             99, 200, 60, 50, "0", background = white, foreground = black, backgroundEntered = mustard
         )
         btnNumber0.addActionListener { pressNumber(0) }
-        btnNumber0.addMouseListener(buttonListener)
+        btnNumber0.addMouseListener(ButtonListener)
         add(btnNumber0)
 
         //del button
@@ -36,7 +36,7 @@ abstract class KeyBoard: SPanel(450, 440, 385, 270) {
             border = ta2Border
         )
         btnDel.addActionListener { pressDel() }
-        btnDel.addMouseListener(buttonListener)
+        btnDel.addMouseListener(ButtonListener)
         add(btnDel)
 
         //cancel button
@@ -45,7 +45,7 @@ abstract class KeyBoard: SPanel(450, 440, 385, 270) {
             border = ta4Border
         )
         btnCancel.addActionListener { pressCancel() }
-        btnCancel.addMouseListener(buttonListener)
+        btnCancel.addMouseListener(ButtonListener)
         add(btnCancel)
 
         //enter button
@@ -54,7 +54,7 @@ abstract class KeyBoard: SPanel(450, 440, 385, 270) {
             border = ta6Border
         )
         btnEnter.addActionListener { pressEnter() }
-        btnEnter.addMouseListener(buttonListener)
+        btnEnter.addMouseListener(ButtonListener)
         add(btnEnter)
     }
 
@@ -75,20 +75,20 @@ abstract class KeyBoard: SPanel(450, 440, 385, 270) {
 
 }
 
-object buttonListener: MouseListener {
+object ButtonListener: MouseListener {
 
     override fun mouseClicked(e: MouseEvent?) {
     }
 
     override fun mousePressed(e: MouseEvent?) {
-        playKeyboardPress()
+        Altavoz.playKeyboardPress()
     }
 
     override fun mouseReleased(e: MouseEvent?) {
     }
 
     override fun mouseEntered(e: MouseEvent?) {
-        playKeyboardRelease()
+        Altavoz.playKeyboardRelease()
     }
 
     override fun mouseExited(e: MouseEvent?) {

@@ -16,7 +16,7 @@ class Window: SPanel(150, 25, 980, 410) {
 
     var estado: Estado = Estado.Apagado
         set(value) {
-            playClickSound()
+            Altavoz.playClickSound()
             removeAll()
             when (value) {
                 Estado.Final -> setFinal()
@@ -62,7 +62,7 @@ class Window: SPanel(150, 25, 980, 410) {
     }
 
     fun establecerSaldo(saldo: String) {
-        lSaldo.text = saldo.toString()
+        lSaldo.text = saldo
     }
 
     private fun setSaldo () {
