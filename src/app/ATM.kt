@@ -166,7 +166,7 @@ class ATM: JFrame() {
     }
 
     private fun verificarDisponibilidadSaldo(saldo: Int) {
-        if(saldo>0 && Banco.verificarDisponibilidadSaldo(saldo)) {
+        if(saldo in 1..600000 && Banco.verificarDisponibilidadSaldo(saldo)) {
             if(window.siguienteEstado != Estado.Transaccion)
                 Banco.retirar(saldo)
             Altavoz.playCashRegister()
