@@ -1,0 +1,9 @@
+#!/bin/bash
+
+mvn clean
+mvn compile
+mvn package
+
+VERSION=1.5
+
+java -javaagent:/usr/share/idea/lib/idea_rt.jar=44105:/usr/share/idea/bin -Dfile.encoding=UTF-8 -classpath target/Cajero-$VERSION.jar:/usr/share/idea/plugins/Kotlin/kotlinc/lib/kotlin-stdlib.jar:/usr/share/idea/plugins/Kotlin/kotlinc/lib/kotlin-reflect.jar:/usr/share/idea/plugins/Kotlin/kotlinc/lib/kotlin-test.jar:$HOME/.m2/repository/com/google/code/gson/gson/2.8.6/gson-2.8.6.jar:$HOME/.m2/repository/com/squareup/retrofit2/converter-gson/2.9.0/converter-gson-2.9.0.jar:$HOME/.m2/repository/com/squareup/retrofit2/retrofit/2.9.0/retrofit-2.9.0.jar:$HOME/.m2/repository/com/squareup/okhttp3/okhttp/3.14.9/okhttp-3.14.9.jar:$HOME/.m2/repository/com/squareup/okio/okio/1.17.2/okio-1.17.2.jar:$HOME/.m2/repository/com/google/code/gson/gson/2.8.5/gson-2.8.5.jar:$HOME/.m2/repository/com/squareup/retrofit2/retrofit/2.7.2/retrofit-2.7.2.jar:$HOME/.m2/repository/com/squareup/okhttp3/okhttp/3.14.7/okhttp-3.14.7.jar:$HOME/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.4.30-M1/kotlin-stdlib-jdk8-1.4.30-M1.jar:$HOME/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib/1.4.30-M1/kotlin-stdlib-1.4.30-M1.jar:$HOME/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-common/1.4.30-M1/kotlin-stdlib-common-1.4.30-M1.jar:$HOME/.m2/repository/org/jetbrains/annotations/13.0/annotations-13.0.jar:$HOME/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.4.30-M1/kotlin-stdlib-jdk7-1.4.30-M1.jar Main
