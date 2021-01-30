@@ -7,10 +7,9 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
-import java.lang.NullPointerException
 
 val gson: Gson = Gson()
-inline fun <reified T> Gson.fromJson(json: String) = fromJson<T>(json, object: TypeToken<T>() {}.type)
+inline fun <reified T> Gson.fromJson(json: String): T = fromJson(json, object: TypeToken<T>() {}.type)
 
 object BaseDeDatos {
 
@@ -41,12 +40,11 @@ object BaseDeDatos {
 
         var ultimaTransaccion = " "
         for(i in last){
-            if(i == '=')
-                ultimaTransaccion += " = "
-            else if (i == ',')
-                ultimaTransaccion += "\n"
-            else
-                ultimaTransaccion += i
+            when (i) {
+                '=' -> ultimaTransaccion += " = "
+                ',' -> ultimaTransaccion += "\n"
+                else -> ultimaTransaccion += i
+            }
         }
 
         return ultimaTransaccion
@@ -70,10 +68,14 @@ object BaseDeDatos {
     }
 
     private fun buildRetrofit(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl("https://graphql-bank.herokuapp.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        return try {
+            Retrofit.Builder()
+                .baseUrl("https://graphql-bank.herokuapp.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        } catch ( error: Exception ) {
+            Retrofit.Builder().build()
+        }
     }
 
 }
@@ -94,14 +96,14 @@ class Info {
     fun getCuenta(): Cuenta? {
         return gson.fromJson(gson.toJson(this.Cuenta), server.Cuenta::class.java)
     }
-    fun getCuentas(): ArrayList<Cuenta>? {
-        return  gson.fromJson<ArrayList<Cuenta>>(gson.toJson(this.Cuentas))
+    fun getCuentas(): ArrayList<Cuenta> {
+        return  gson.fromJson(gson.toJson(this.Cuentas))
     }
     fun getTransaccion(): Transaccion? {
         return gson.fromJson(gson.toJson(this.Transaccion), server.Transaccion::class.java)
     }
-    fun getTransacciones(): ArrayList<Transaccion>? {
-        return  gson.fromJson<ArrayList<Transaccion>>(gson.toJson(this.Transacciones))
+    fun getTransacciones(): ArrayList<Transaccion> {
+        return  gson.fromJson(gson.toJson(this.Transacciones))
     }
 
     fun getLogin(): Boolean {
@@ -118,6 +120,6 @@ data class Transaccion(@SerializedName("id") val id: String?, @SerializedName("f
 
 data class Json(@SerializedName("query")val query: String, @SerializedName("variables") val variables: Variables? = null)
 
-data class Variables(val id: String? = null, val idCuenta: String? = null, val contrasenna : Int? = null, val input: Input? = null);
+data class Variables(val id: String? = null, val idCuenta: String? = null, val contrasenna : Int? = null, val input: Input? = null)
 
 data class Input(val operacionDescripcion: String, val operacionTipo: String, val idCuenta: String)
