@@ -122,6 +122,7 @@ class Window: SPanel(150, 25, 980, 410) {
         estado = if (Banco.validarPassword(tfPassword.text)) {
             siguienteEstado
         } else {
+            Altavoz.playWinXpErrorSound()
             Estado.EscogerOperacion
         }
     }
